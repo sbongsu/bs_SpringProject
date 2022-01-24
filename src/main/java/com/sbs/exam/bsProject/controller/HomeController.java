@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
-	@RequestMapping("/usr/home/controller")
-	@ResponseBody
+	@RequestMapping("/usr/home/homePage")
 	public String showHomeMain() {
-		return "프로젝트 만들기전에 확인!";
+		return "usr/home/homePage";
+	}
+	
+	@RequestMapping("/")
+	public String showHomeRoot() {
+		return "redirect:/usr/home/homePage";
 	}
 }
