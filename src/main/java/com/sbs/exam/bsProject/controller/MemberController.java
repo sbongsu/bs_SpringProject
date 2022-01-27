@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.bsProject.service.MemberService;
+import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Member;
 
 @Controller
@@ -36,11 +37,11 @@ public class MemberController {
 			return "이미 로그인 되었습니다.";
 		}
 		
-		if(loginId == null || loginId.trim().length() == 0) {
+		if(Ut.empty(loginId)) {
 			return "아이디를 입력해주세요";
 			}
 		
-		if(loginPw == null || loginPw.trim().length() == 0) {
+		if(Ut.empty(loginPw)) {
 			return "비밀번호를 입력해주세요";
 			}
 		
