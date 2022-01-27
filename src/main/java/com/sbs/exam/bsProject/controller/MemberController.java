@@ -34,30 +34,30 @@ public class MemberController {
 		}
 		
 		if(loginCheck) {
-			return "이미 로그인 되었습니다.";
+			return Ut.jsHistoryBack("이미 로그인 되었습니다.");
 		}
 		
 		if(Ut.empty(loginId)) {
-			return "아이디를 입력해주세요";
+			return Ut.jsHistoryBack("아이디를 입력해주세요");
 			}
 		
 		if(Ut.empty(loginPw)) {
-			return "비밀번호를 입력해주세요";
+			return Ut.jsHistoryBack("비밀번호를 입력해주세요");
 			}
 		
 		Member member = memberService.getMemberId(loginId);
 		
 		if(member == null) {
-			return "등록되지 않은 아이디입니다.";
+			return Ut.jsHistoryBack("등록되지 않은 아이디입니다.");
 		}
 		
-		if(loginPw != member.getLoginPw()) {
-			return "비밀번호를 확인해주세요";
+		if(member.getLoginPw().equals(loginPw) == false) {
+			return Ut.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
 		httpSession.setAttribute("loginedId", member.getLoginId());
 		
-		return "로그인 성공!";
+		return Ut.jsReplace("로그인 성공", "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
