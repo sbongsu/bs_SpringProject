@@ -27,6 +27,7 @@ public class MemberController {
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
+		
 		boolean loginCheck = false;
 		
 		if(httpSession.getAttribute("loginedId") != null) {
