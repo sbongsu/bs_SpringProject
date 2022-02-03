@@ -22,7 +22,7 @@
   <header>
     <div class="navbar mb-2 shadow-lg bg-accent-content text-base-content rounded-box">
       <div class="px-2 mx-2 navbar-start">
-      <img class="w-14" src="${pageContext.request.contextPath}/resources/img/logo.png" />
+        <img class="w-14" src="${pageContext.request.contextPath}/resources/img/logo.png" />
         <span class="text-lg font-bold main_font"> 댕냥댕냥 </span>
       </div>
       <div class="hidden px-2 mx-2 navbar-center lg:flex">
@@ -34,7 +34,12 @@
         </div>
       </div>
       <div class="navbar-end text-xs text-gray-400">
-        <a href="/usr/member/showLogin" class="link link-hover">LOGIN</a>
+        <c:if test="${!rq.isLogined() }">
+          <a href="/usr/member/showLogin" class="link link-hover">LOGIN</a>
+        </c:if>
+        <c:if test="${rq.isLogined() }">
+          <a href="/usr/member/doLogout" class="link link-hover">LOGOUT</a>
+        </c:if>
         <a class="link link-hover ml-3 mr-3">JOIN</a>
       </div>
     </div>

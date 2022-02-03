@@ -56,7 +56,7 @@ public class MemberController {
 			return Ut.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
-		httpSession.setAttribute("loginedId", member.getLoginId());
+		httpSession.setAttribute("loginedId", member.getId());
 		
 		return Ut.jsReplace("로그인 성공", "/");
 	}
@@ -76,6 +76,6 @@ public class MemberController {
 		
 		httpSession.removeAttribute("loginedId");
 		
-		return "로그아웃 되었습니다.";
+		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
 }

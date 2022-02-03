@@ -26,9 +26,9 @@ public class Rq {
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
+		if (httpSession.getAttribute("loginedId") != null) {
 			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId =  (int) httpSession.getAttribute("loginedId");
 		}
 
 		this.isLogined = isLogined;
