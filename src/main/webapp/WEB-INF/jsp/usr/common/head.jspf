@@ -28,7 +28,7 @@
       <div class="hidden px-2 mx-2 navbar-center lg:flex">
         <div class="flex items-stretch">
           <a href="/" class="btn btn-ghost btn-sm rounded-btn"> 홈 </a>
-          <a class="btn btn-ghost btn-sm rounded-btn"> 공지사항 </a>
+          <a href="/usr/article/list" class="btn btn-ghost btn-sm rounded-btn"> 공지사항 </a>
           <a class="btn btn-ghost btn-sm rounded-btn"> 정보공유게시판 </a>
           <a class="btn btn-ghost btn-sm rounded-btn"> 자유게시판 </a>
         </div>
@@ -44,3 +44,21 @@
       </div>
     </div>
   </header>
+  <div class="table float-left ml-6 mr-12">
+    <div class="table-cell align-middle w-48 h-96 text-center text-sm">
+      <ul class="menu w-48 border border-gray-200 bg-base-250  menu-compact lg:menu-normal rounded-box text-center">
+        <li class="">
+          <a href="/">홈</a>
+        </li>
+        <li>
+          <a> 공지사항 </a>
+        </li>
+        <li>
+          <a> 정보공유게시판 </a>
+        </li>
+        <li>
+          <a> 자유게시판 </a>
+        </li>
+      </ul>
+    </div>
+  </div>
