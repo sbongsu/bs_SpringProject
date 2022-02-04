@@ -31,7 +31,7 @@ public class MemberController {
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if(rq.isLogined()) {
+		if(!rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인 되었습니다.");
 		}
 		
@@ -65,7 +65,7 @@ public class MemberController {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(rq.isLogined()) {
-			return "이미 로그아웃 상태입니다.";
+			return Ut.jsHistoryBack("이미 로그아웃 되었습니다.");
 		}
 		
 		rq.logout();

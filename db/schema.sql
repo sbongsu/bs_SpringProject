@@ -36,3 +36,12 @@ nickName = '길동',
 email = 'asdfe@nate.com',
 phoneNum = '01022223333';
 SELECT * FROM `member`;
+
+#게시물 테이블 생성
+CREATE TABLE article(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+title CHAR(100) NOT NULL,
+`body` TEXT NOT NULL
+);
