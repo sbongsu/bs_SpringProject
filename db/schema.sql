@@ -35,7 +35,6 @@ userName = '홍길동',
 nickName = '길동',
 email = 'asdfe@nate.com',
 phoneNum = '01022223333';
-SELECT * FROM `member`;
 
 #게시물 테이블 생성
 CREATE TABLE article(
@@ -45,3 +44,24 @@ updateDate DATETIME NOT NULL,
 title CHAR(100) NOT NULL,
 `body` TEXT NOT NULL
 );
+
+# 테스트 게시물 생성
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '안녕하세요',
+`body` = '안녕하세요 반갑습니다.';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '깝순',
+`body` = '복순';
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '전라북도',
+`body` = '정읍시';
+
+SELECT * FROM article;
