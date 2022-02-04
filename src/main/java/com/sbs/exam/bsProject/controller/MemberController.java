@@ -1,5 +1,6 @@
 package com.sbs.exam.bsProject.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.exam.bsProject.service.MemberService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Member;
+import com.sbs.exam.bsProject.vo.Rq;
 
 @Controller
 public class MemberController {
@@ -26,15 +28,10 @@ public class MemberController {
 	}
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		boolean loginCheck = false;
-		
-		if(httpSession.getAttribute("loginedId") != null) {
-			loginCheck = true;
-		}
-		
-		if(loginCheck) {
+		if(rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인 되었습니다.");
 		}
 		
@@ -56,25 +53,22 @@ public class MemberController {
 			return Ut.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
-		httpSession.setAttribute("loginedId", member.getId());
+		rq.login(member);
+		
 		
 		return Ut.jsReplace("로그인 성공", "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession httpSession) {
-		boolean logoutCheck = false;
+	public String doLogout(HttpServletRequest req) {
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if(httpSession.getAttribute("loginedId") == null) {
-			logoutCheck = true;
-		}
-		
-		if(logoutCheck) {
+		if(rq.isLogined()) {
 			return "이미 로그아웃 상태입니다.";
 		}
 		
-		httpSession.removeAttribute("loginedId");
+		rq.logout();
 		
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
