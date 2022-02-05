@@ -9,7 +9,7 @@
     <p class="text-2xl text-blue-500">${article.title}</p>
     
     <%--게시물 작성자 내용 --%>
-    <span class="text-xs">작성자닉네임</span>
+    <span class="text-xs">${article.extra__writerName }</span>
     <span class="text-xs ml-1">${article.regDate.substring(2, 16) }</span>
     <%--게시물 내용 --%>
     <div class="mt-6">${article.body }</div>

@@ -31,7 +31,7 @@ public class ArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		
 		model.addAttribute("article", article);
 		
