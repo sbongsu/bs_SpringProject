@@ -21,4 +21,11 @@ public interface ArticleRepository {
 			""")
 	List<Article> getArticles();
 
+	@Select("""
+			SELECT *
+			FROM article
+			WHERE id = #{id}
+			""")
+	Article getArticle(int id);
+
 }

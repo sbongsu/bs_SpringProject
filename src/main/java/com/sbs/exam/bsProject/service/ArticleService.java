@@ -21,4 +21,9 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
+	public Article getArticle(int id) {
+		// TODO Auto-generated method stub
+		return articleRepository.getArticle(id);
+	}
+
 }
