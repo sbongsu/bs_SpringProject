@@ -21,9 +21,30 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public Article getForPrintArticle(int id) {
-		// TODO Auto-generated method stub
-		return articleRepository.getForPrintArticle(id);
+	public Article getForPrintArticle(int actor, int id) {
+		Article article = articleRepository.getForPrintArticle(id);
+		
+		actorCanSee(actor, article);
+		
+		return article;
 	}
+
+	public void articleModify(int id, String title, String body) {
+		articleRepository.articleModify(id, title, body);
+	}
+
+	public void actorCanSee(int actor, Article article) {
+	
+		if (article == null) {
+			return;
+		}
+		
+		if(actor == article.getMemberId()) {
+			article.setExtra__actorCanSee(true);
+		}
+	
+	}
+
+
 
 }

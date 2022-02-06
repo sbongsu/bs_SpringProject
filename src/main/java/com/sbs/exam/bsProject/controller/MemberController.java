@@ -1,8 +1,5 @@
 package com.sbs.exam.bsProject.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,9 +13,11 @@ import com.sbs.exam.bsProject.vo.Rq;
 public class MemberController {
 
 	private MemberService memberService;
+	private Rq rq;
 	
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
+		this.rq = rq;
 	}
 	
 	@RequestMapping("/usr/member/showLogin")
@@ -28,8 +27,7 @@ public class MemberController {
 	}
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogin(String loginId, String loginPw) {
 		
 		if(rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인 되었습니다.");
@@ -61,8 +59,7 @@ public class MemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout() {
 		
 		if(!rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그아웃 되었습니다.");

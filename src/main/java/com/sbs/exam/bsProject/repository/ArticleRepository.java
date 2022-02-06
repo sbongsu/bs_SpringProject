@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sbs.exam.bsProject.vo.Article;
 
@@ -31,4 +32,20 @@ public interface ArticleRepository {
 			""")
 	Article getForPrintArticle(int id);
 
+	@Update("""
+		<script>
+			UPDATE article
+			<set>
+				<if test="title != null and title !=''">
+					title = #{title},
+				</if>
+				<if test="body != null and body != ''">
+					`body` = #{body},
+				</if>
+				updateDate = NOW()
+			</set>
+			WHERE id = #{id}
+		</script>
+				""")
+	void articleModify(int id, String title, String body);
 }

@@ -10,10 +10,15 @@ import com.sbs.exam.bsProject.vo.Rq;
 
 @Component
 public class NeedLoginIntercepter implements HandlerInterceptor {
+	private Rq rq;
+
+	public NeedLoginIntercepter(Rq rq) {
+		this.rq = rq;
+	}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		Rq rq = (Rq) req.getAttribute("rq");
-		
+
 		if(!rq.isLogined()) {
 			rq.printHistoryBackJs("로그인 후 이용해주세요");
 			return false;

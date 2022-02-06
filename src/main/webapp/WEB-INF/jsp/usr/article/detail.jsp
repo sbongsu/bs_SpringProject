@@ -19,10 +19,12 @@
       <div class="mt-6">${article.body }</div>
     </div>
     <%--수정, 삭제버튼--%>
-    <div class="float-right mt-1">
-      <a href="../article/modify?id=${article.id }" class="btn btn-ghost">수정</a>
-      <a href="../article/doDelete?id=${article.id }" class="btn btn-ghost">삭제</a>
-    </div>
+    <c:if test="${article.extra__actorCanSee }">
+      <div class="float-right mt-1">
+        <a href="../article/modify?id=${article.id }" class="btn btn-ghost">수정</a>
+        <a href="../article/doDelete?id=${article.id }" class="btn btn-ghost">삭제</a>
+      </div>
+    </c:if>
   </div>
 </div>
 

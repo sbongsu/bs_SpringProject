@@ -35,34 +35,35 @@ public class Ut {
 			return "";
 		}
 
-		String script = """
+		return Ut.f("""
 				<script>
-					const msg = '%s'.trim();
-					if(msg.length > 0){
-					alert(msg);
-					}
-					history.back();
+				const msg = '%s'.trim();
+				if ( msg.length > 0 ) {
+				    alert(msg);
+				}
+				history.back();
 				</script>
-					""";
-		return Ut.f(script, msg);
+				""", msg);
 	}
 
 	public static String jsReplace(String msg, String uri) {
+		if (msg == null) {
+			msg = "";
+		}
 		
-		if(msg == null) {
-			return "";
+		if (uri == null) {
+			uri = "";
 		}
 
-		String script = """
+		return Ut.f("""
 				<script>
-					const msg = '%s'.trim();
-					if(msg.length > 0){
-					alert(msg);
-					}
-					location.replace('%s');
+				const msg = '%s'.trim();
+				if ( msg.length > 0 ) {
+				    alert(msg);
+				}
+				location.replace('%s');
 				</script>
-					""";
-		return Ut.f(script, msg, uri);
+				""", msg, uri);
 	}
 
 }
