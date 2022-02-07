@@ -64,4 +64,49 @@ updateDate = NOW(),
 title = '전라북도',
 `body` = '정읍시';
 
+# 게시물 테이블에 회원정보 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
+# 기존 게시물의 작성자를 2번호으로 지정
+UPDATE article
+SET memberId = 2
+WHERE memberId = 0;
+
+#게시판 테이블 생성
+CREATE TABLE board(
+id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+regDate DATETIME NOT NULL,
+updateDate DATETIME NOT NULL,
+`code` CHAR(50) NOT NULL UNIQUE,
+`name` CHAR(50) NOT NULL UNIQUE
+);
+
+# 공지사항 추가
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+# 자유게시판 추가
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free',
+`name` = '자유게시판';
+
+# 게시물 테이블에 boardId 추가
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER memberId;
+
+# 게시물에 게시판 번호 부여
+UPDATE article
+SET boardId = 1
+WHERE id IN (1,2);
+
+UPDATE article
+SET boardId = 2
+WHERE id IN (3);
+
+SELECT * FROM board;
+SELECT * FROM `member`;
 SELECT * FROM article;
