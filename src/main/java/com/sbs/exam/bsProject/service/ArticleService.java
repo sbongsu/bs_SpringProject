@@ -45,6 +45,10 @@ public class ArticleService {
 	
 	}
 
+	public void articleDelete(int id) {
+		articleRepository.articleDelete(id);
+	}
+
 
 
 }

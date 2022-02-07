@@ -76,4 +76,23 @@ public class ArticleController {
 		articleService.articleModify(id, title, body);
 		return Ut.jsReplace("게시물이 수정되었습니다",  Ut.f("../article/detail?id=%d", id));
 	}
+	
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		
+		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
+		
+		if(article == null) {
+			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		
+		if(!article.isExtra__actorCanSee()) {
+			return "권한이 없습니다.";
+		}
+		
+		articleService.articleDelete(id);
+		return Ut.jsReplace("게시물이 삭제되었습니다", "/");
+	}
 }

@@ -21,8 +21,8 @@
     <%--수정, 삭제버튼--%>
     <c:if test="${article.extra__actorCanSee }">
       <div class="float-right mt-1">
-        <a href="../article/modify?id=${article.id }" class="btn btn-ghost">수정</a>
-        <a href="../article/doDelete?id=${article.id }" class="btn btn-ghost">삭제</a>
+        <a href="../article/modify?id=${article.id }" onclick="if ( confirm('정말 수정하시겠습니까?') == false ) return false;" class="btn btn-ghost">수정</a>
+        <a href="../article/doDelete?id=${article.id }" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;" class="btn btn-ghost">삭제</a>
       </div>
     </c:if>
   </div>

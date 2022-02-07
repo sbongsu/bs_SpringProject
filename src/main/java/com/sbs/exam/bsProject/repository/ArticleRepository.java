@@ -2,6 +2,7 @@ package com.sbs.exam.bsProject.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -48,4 +49,10 @@ public interface ArticleRepository {
 		</script>
 				""")
 	void articleModify(int id, String title, String body);
+
+	@Delete("""
+			DELETE FROM article
+			WHERE id = #{id}
+			""")
+	void articleDelete(int id);
 }
