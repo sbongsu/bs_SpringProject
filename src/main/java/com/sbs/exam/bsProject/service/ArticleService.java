@@ -16,9 +16,9 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public List<Article> getArticles() {
+	public List<Article> getArticles(int boardId) {
 		
-		return articleRepository.getArticles();
+		return articleRepository.getArticles(boardId);
 	}
 
 	public Article getForPrintArticle(int actor, int id) {

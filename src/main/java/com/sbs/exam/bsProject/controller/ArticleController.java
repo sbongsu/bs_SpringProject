@@ -35,7 +35,7 @@ public class ArticleController {
 			return Ut.jsHistoryBack("존재하지 않는 게시판입니다.");
 		}
 		
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getArticles(boardId);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);

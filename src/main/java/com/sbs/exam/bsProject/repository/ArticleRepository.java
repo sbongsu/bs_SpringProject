@@ -13,15 +13,20 @@ import com.sbs.exam.bsProject.vo.Article;
 public interface ArticleRepository {
 
 	@Select("""
+			<script>
 			SELECT A.*,
 			M.nickname AS extra__writerName
 			FROM article AS A
 			LEFT JOIN member AS M
 			ON A.memberId = M.id
+			<if test="boardId != 0">
+			WHERE boardId = #{boardId}
+			</if>
 			ORDER BY
 			id DESC
+			</script>
 			""")
-	List<Article> getArticles();
+	List<Article> getArticles(int boardId);
 
 	@Select("""
 			SELECT A.*,
@@ -34,20 +39,20 @@ public interface ArticleRepository {
 	Article getForPrintArticle(int id);
 
 	@Update("""
-		<script>
-			UPDATE article
-			<set>
-				<if test="title != null and title !=''">
-					title = #{title},
-				</if>
-				<if test="body != null and body != ''">
-					`body` = #{body},
-				</if>
-				updateDate = NOW()
-			</set>
-			WHERE id = #{id}
-		</script>
-				""")
+				<script>
+				UPDATE article
+				<set>
+					<if test="title != null and title !=''">
+						title = #{title},
+					</if>
+					<if test="body != null and body != ''">
+						`body` = #{body},
+					</if>
+					updateDate = NOW()
+				</set>
+				WHERE id = #{id}
+			</script>
+					""")
 	void articleModify(int id, String title, String body);
 
 	@Delete("""
