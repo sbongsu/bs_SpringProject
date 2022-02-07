@@ -107,6 +107,17 @@ UPDATE article
 SET boardId = 2
 WHERE id IN (3);
 
+/*
+insert into article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_', rand()), CONCAT('내용_', RAND())
+from article;
+*/
+
 SELECT * FROM board;
 SELECT * FROM `member`;
 SELECT * FROM article;
+
+SELECT RAND();

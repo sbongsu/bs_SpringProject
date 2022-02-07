@@ -44,9 +44,9 @@
       </div>
     </div>
   </header>
-  <div class="table float-left ml-6 mr-12 mt-12 h-screen fixed">
+  <div class="table float-left ml-6 mr-12 mt-12 h-screen">
     <div class="table-cell align-top w-48 text-center text-sm">
-      <ul class="menu border border-gray-200 menu-compact lg:menu-normal rounded-box text-center">
+      <ul class="menu border border-gray-200 w-52 mt-16 menu-compact lg:menu-normal rounded-box text-center fixed">
         <li class="">
           <a href="/">홈</a>
         </li>
