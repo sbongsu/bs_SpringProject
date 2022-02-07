@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageName" value="게시판" />
+<c:set var="pageName" value="${board.name}" />
 <%@ include file="../common/head.jspf"%>
 <div class="w-11/12">
   <div class="overflow-x-auto mt-12">

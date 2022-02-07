@@ -2,16 +2,16 @@ package com.sbs.exam.bsProject.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.bsProject.service.ArticleService;
+import com.sbs.exam.bsProject.service.BoardService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
+import com.sbs.exam.bsProject.vo.Board;
 import com.sbs.exam.bsProject.vo.Rq;
 
 @Controller
@@ -19,17 +19,25 @@ public class ArticleController {
 
 	private ArticleService articleService;
 	private Rq rq;
+	private BoardService boardService;
 	
-	public ArticleController(ArticleService articleService, Rq rq) {
+	public ArticleController(ArticleService articleService, Rq rq, BoardService boardService) {
 		this.articleService = articleService;
 		this.rq = rq;
+		this.boardService = boardService;
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model) {
+	public String showList(Model model,int boardId) {
+		Board board = boardService.getBoardById(boardId);
+		
+		if(board == null) {
+			return Ut.jsHistoryBack("존재하지 않는 게시판입니다.");
+		}
 		
 		List<Article> articles = articleService.getArticles();
 		
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";
