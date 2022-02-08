@@ -43,9 +43,28 @@
     </table>
   </div>
   <div class="btn-group justify-center mt-4">
-  <c:forEach begin="1" end="${pagesCount }" var="i">
-  <a class="btn btn-xs text-2xl ${param.page == i ? 'btn-active' : ''}" href="?page=${i }&boardId=${board.id}">${i }</a> 
-  </c:forEach>
-</div>
+
+    <c:set var="pageMenuLen" value="4" />
+    <c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1}" />
+    <c:set var="endPage" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount}" />
+
+        <c:if test="${startPage > 1}">
+          <a class="btn btn-xs" href="?page=1&boardId=${board.id}">1</a>
+          <c:if test="${startPage > 2}">          
+            <a class="btn btn-xs btn-disabled">...</a>
+          </c:if>
+        </c:if>
+        
+        <c:forEach begin="${startPage}" end="${endPage}" var="i">
+      <a class="btn btn-xs text-2xl ${param.page == i ? 'btn-active' : ''}" href="?page=${i }&boardId=${board.id}">${i }</a>
+    </c:forEach>
+    
+            <c:if test="${endPage < pagesCount}">
+          <c:if test="${endPage < pagesCount - 1}">
+            <a class="btn btn-xs btn-disabled">...</a>
+          </c:if> 
+          <a class="btn btn-xs" href="?page=${pagesCount }&boardId=${board.id}">${pagesCount}</a>
+        </c:if>
+  </div>
 </div>
 <%@ include file="../common/foot.jspf"%>

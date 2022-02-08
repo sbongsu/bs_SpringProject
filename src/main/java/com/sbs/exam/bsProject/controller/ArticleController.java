@@ -42,6 +42,7 @@ public class ArticleController {
 		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page);
 		
 		model.addAttribute("board", board);
+		model.addAttribute("page", page);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
