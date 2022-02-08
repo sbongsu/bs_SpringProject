@@ -24,9 +24,10 @@ public interface ArticleRepository {
 			</if>
 			ORDER BY
 			id DESC
+			LIMIT #{pageStart}, #{pageLast}
 			</script>
 			""")
-	List<Article> getArticles(int boardId);
+	List<Article> getArticles(int boardId, int pageStart, int pageLast);
 
 	@Select("""
 			SELECT A.*,
