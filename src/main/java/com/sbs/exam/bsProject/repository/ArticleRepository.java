@@ -61,4 +61,11 @@ public interface ArticleRepository {
 			WHERE id = #{id}
 			""")
 	void articleDelete(int id);
+
+	@Select("""
+			SELECT COUNT(*)
+			FROM article
+			WHERE boardId = #{boardId}
+			""")
+	int getArticlesCount(int boardId);
 }

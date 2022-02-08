@@ -52,6 +52,10 @@ public class ArticleService {
 		articleRepository.articleDelete(id);
 	}
 
+	public int getArticlesCount(int boardId) {
+		return articleRepository.getArticlesCount(boardId);
+	}
+
 
 
 }

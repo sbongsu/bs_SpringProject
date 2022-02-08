@@ -3,7 +3,7 @@
 <c:set var="pageName" value="${board.name}" />
 <%@ include file="../common/head.jspf"%>
 <div class="mt-8">
-  <p>* ${board.name}</p>
+  <p>* ${board.name} (${articlesCount})</p>
   <c:if test="${board.name eq '공지사항'}">
     <p class="text-xs text-gray-400">댕냥댕냥 공지사항 게시판입니다.</p>
   </c:if>
@@ -42,5 +42,10 @@
       </tbody>
     </table>
   </div>
+  <div class="btn-group justify-center mt-4">
+  <c:forEach begin="1" end="${pagesCount }" var="i">
+  <a class="btn btn-xs text-2xl ${param.page == i ? 'btn-active' : ''}" href="?page=${i }&boardId=${board.id}">${i }</a> 
+  </c:forEach>
+</div>
 </div>
 <%@ include file="../common/foot.jspf"%>
