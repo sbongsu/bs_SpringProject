@@ -27,7 +27,7 @@ public class ArticleController {
 		this.rq = rq;
 		this.boardService = boardService;
 	}
-
+	
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
 		Board board = boardService.getBoardById(boardId);
@@ -65,7 +65,11 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		
 		if(article == null) {
-			return Ut.jsHistoryBack("게시물이 존재하지 않습니다.");
+			return rq.historyBackJsOnView("게시물이 존재하지 않습니다");
+		}
+		
+		if(!article.isExtra__actorCanSee()) {
+			return "권한이 없습니다.";
 		}
 		
 		model.addAttribute("article", article);

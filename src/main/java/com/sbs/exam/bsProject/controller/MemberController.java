@@ -20,6 +20,12 @@ public class MemberController {
 		this.rq = rq;
 	}
 	
+	@RequestMapping("/usr/member/join")
+	public String showJoin() {
+		
+		return "usr/member/join";
+	}
+	
 	@RequestMapping("/usr/member/showLogin")
 	public String showLogin() {
 		
