@@ -28,7 +28,8 @@ public class ArticleController {
 		this.rq = rq;
 		this.boardService = boardService;
 	}
-	@RequestMapping("/usr/article/write")
+		
+	@RequestMapping("/usr/article/dowrite")
 	@ResponseBody
 	public ResultDate doWrite(String title, String body) {
 		

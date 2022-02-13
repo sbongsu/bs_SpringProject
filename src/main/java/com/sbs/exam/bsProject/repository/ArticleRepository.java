@@ -80,4 +80,9 @@ public interface ArticleRepository {
 			body = #{body}
 			""")
 	void doWrite(String title, String body);
+
+	@Select("""
+			SELECT LAST_INSERT_ID()
+			""")
+	int getLastInsertId();
 }

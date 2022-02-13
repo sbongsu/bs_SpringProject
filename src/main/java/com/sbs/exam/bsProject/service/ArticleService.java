@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sbs.exam.bsProject.repository.ArticleRepository;
+import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
 import com.sbs.exam.bsProject.vo.ResultDate;
 
@@ -59,7 +60,8 @@ public class ArticleService {
 
 	public ResultDate doWrite(String title, String body) {
 		articleRepository.doWrite(title,body);
-		return ResultDate.from("S-1", "게시물을 작성 하였습니다.");
+		int id = articleRepository.getLastInsertId();
+		return ResultDate.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id));
 		
 	}
 
