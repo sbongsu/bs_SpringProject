@@ -11,6 +11,10 @@ public class ResultDate {
 	@Getter
 	private Object data1;
 	
+	public static ResultDate from(String resultCode, String msg) {
+		return from(resultCode, msg, null);
+	}
+	
 	public static ResultDate from(String resultCode, String msg, Object data1) {
 		ResultDate rd = new ResultDate();
 		rd.resultCode = resultCode;

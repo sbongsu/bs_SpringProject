@@ -3,6 +3,7 @@ package com.sbs.exam.bsProject.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -68,4 +69,15 @@ public interface ArticleRepository {
 			WHERE boardId = #{boardId}
 			""")
 	int getArticlesCount(int boardId);
+
+	@Insert("""
+			INSERT INTO article
+			SET regDate = NOW(),
+			updateDate = NOW(),
+			memberId = 1,
+			boardId = 2,
+			title = #{title},
+			body = #{body}
+			""")
+	void doWrite(String title, String body);
 }

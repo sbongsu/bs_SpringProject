@@ -13,6 +13,7 @@ import com.sbs.exam.bsProject.service.BoardService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
 import com.sbs.exam.bsProject.vo.Board;
+import com.sbs.exam.bsProject.vo.ResultDate;
 import com.sbs.exam.bsProject.vo.Rq;
 
 @Controller
@@ -26,6 +27,22 @@ public class ArticleController {
 		this.articleService = articleService;
 		this.rq = rq;
 		this.boardService = boardService;
+	}
+	@RequestMapping("/usr/article/write")
+	@ResponseBody
+	public ResultDate doWrite(String title, String body) {
+		
+		if(Ut.empty(title)) {
+			return ResultDate.from("F-1", "제목을 입력해주세요");
+		}
+		
+		if(Ut.empty(body)) {
+			return ResultDate.from("F-1", "내용을 입력해주세요");
+		}
+		
+		ResultDate writeRd = articleService.doWrite(title, body);
+		
+		return ResultDate.from("S-1", writeRd.getMsg());
 	}
 	
 	@RequestMapping("/usr/article/list")

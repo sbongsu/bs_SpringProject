@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.exam.bsProject.repository.ArticleRepository;
 import com.sbs.exam.bsProject.vo.Article;
+import com.sbs.exam.bsProject.vo.ResultDate;
 
 @Service
 public class ArticleService {
@@ -54,6 +55,12 @@ public class ArticleService {
 
 	public int getArticlesCount(int boardId) {
 		return articleRepository.getArticlesCount(boardId);
+	}
+
+	public ResultDate doWrite(String title, String body) {
+		articleRepository.doWrite(title,body);
+		return ResultDate.from("S-1", "게시물을 작성 하였습니다.");
+		
 	}
 
 
