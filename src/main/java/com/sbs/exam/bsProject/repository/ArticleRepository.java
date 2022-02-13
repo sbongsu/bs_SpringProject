@@ -74,12 +74,12 @@ public interface ArticleRepository {
 			INSERT INTO article
 			SET regDate = NOW(),
 			updateDate = NOW(),
-			memberId = 1,
-			boardId = 2,
+			memberId = #{memberId},
+			boardId = #{boardId},
 			title = #{title},
 			body = #{body}
 			""")
-	void doWrite(String title, String body);
+	void doWrite(int memberId, int boardId, String title, String body);
 
 	@Select("""
 			SELECT LAST_INSERT_ID()

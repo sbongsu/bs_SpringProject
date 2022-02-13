@@ -28,22 +28,28 @@ public class ArticleController {
 		this.rq = rq;
 		this.boardService = boardService;
 	}
+	
+	@RequestMapping("/usr/article/write")
+	public String showWrite(String title, String body) {
 		
+		return "usr/article/write";
+	}
+	
 	@RequestMapping("/usr/article/dowrite")
 	@ResponseBody
-	public ResultDate doWrite(String title, String body) {
+	public String doWrite(int boardId, String title, String body) {
 		
 		if(Ut.empty(title)) {
-			return ResultDate.from("F-1", "제목을 입력해주세요");
+			return Ut.jsHistoryBack("제목을 입력해주세요");
 		}
 		
 		if(Ut.empty(body)) {
-			return ResultDate.from("F-1", "내용을 입력해주세요");
+			return Ut.jsHistoryBack("내용을입력해주세요");
 		}
 		
-		ResultDate writeRd = articleService.doWrite(title, body);
+		ResultDate writeRd = articleService.doWrite(rq.getLoginedId(),boardId,title, body);
 		
-		return ResultDate.from("S-1", writeRd.getMsg());
+		return Ut.jsReplace(writeRd.getMsg(), Ut.f("../article/list?boardId=%d&page=1", boardId));
 	}
 	
 	@RequestMapping("/usr/article/list")

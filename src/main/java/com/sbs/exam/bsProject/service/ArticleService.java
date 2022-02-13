@@ -58,8 +58,8 @@ public class ArticleService {
 		return articleRepository.getArticlesCount(boardId);
 	}
 
-	public ResultDate doWrite(String title, String body) {
-		articleRepository.doWrite(title,body);
+	public ResultDate doWrite(int memberId, int boardId, String title, String body) {
+		articleRepository.doWrite(memberId,boardId,title,body);
 		int id = articleRepository.getLastInsertId();
 		return ResultDate.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id));
 		

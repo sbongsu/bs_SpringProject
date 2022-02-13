@@ -19,5 +19,10 @@ public class MemberService {
 		
 		return memberRepository.getMemberId(loginId);
 	}
+	
+	public Member getMemberById(int id) {
+		
+		return memberRepository.getMemberById(id);
+	}
 
 }

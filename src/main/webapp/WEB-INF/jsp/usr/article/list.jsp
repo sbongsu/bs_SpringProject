@@ -11,6 +11,7 @@
     <p class="text-xs text-gray-400">자유롭게 소통하는 게시판입니다.^_^</p>
   </c:if>
 </div>
+<input type="hidden" name="boardId" value="${param.boardId}" />
 <!-- 게시물 리스트 -->
 <div class="w-11/12 mt-2">
   <div class="overflow-x-auto">
@@ -46,7 +47,7 @@
   
   <!-- 로그인할때만 글쓰기 버튼 -->
   <c:if test="${rq.isLogined() }">
-    <a href="../article/write" class="btn btn-xs mt-2 float-right">글쓰기</a>
+    <a href="../article/write?boardId=${param.boardId}" class="btn btn-xs mt-2 float-right">글쓰기</a>
   </c:if>
   
   <!-- 페이징처리 -->
