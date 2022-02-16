@@ -38,10 +38,13 @@
           <a href="/usr/member/showLogin" class="link link-hover">LOGIN</a>
         </c:if>
         <c:if test="${rq.isLogined() }">
+          <a href="/usr/member/loginCheck" class="link link-hover mr-4">${rq.loginedMember.nickName }'s profile</a>
+        </c:if>
+        <c:if test="${rq.isLogined() }">
           <a href="/usr/member/doLogout" class="link link-hover">LOGOUT</a>
         </c:if>
         <c:if test="${!rq.isLogined() }">
-        <a href="/usr/member/join" class="link link-hover ml-3 mr-3">JOIN</a>
+          <a href="/usr/member/join" class="link link-hover ml-3 mr-3">JOIN</a>
         </c:if>
       </div>
     </div>

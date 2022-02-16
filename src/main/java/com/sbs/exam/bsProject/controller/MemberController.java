@@ -75,4 +75,27 @@ public class MemberController {
 		
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
+	
+	@RequestMapping("/usr/member/loginCheck")
+	public String loginCheck() {
+		
+		return "usr/member/loginCheck";
+	}
+	
+	@RequestMapping("/usr/member/doLoginCheck")
+	@ResponseBody
+	public String doLoginCheck(String loginPw) {
+		
+		if(Ut.empty(loginPw)) {
+			return rq.historyBackJsOnView("비밀번호를 입력해주세요.");
+			}
+		
+		if(rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
+			return rq.historyBackJsOnView("비밀번호가 일치하지 않습니다.");
+		}
+		
+		
+		
+		return Ut.jsReplace("", "/");
+	}
 }
