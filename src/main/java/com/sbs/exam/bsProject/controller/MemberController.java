@@ -76,6 +76,18 @@ public class MemberController {
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
 	}
 	
+	@RequestMapping("/usr/member/showMyPage")
+	public String showMypage() {
+		
+		return "usr/member/myPage";
+	}
+	
+	@RequestMapping("/usr/member/showModify")
+	public String showModify() {
+		
+		return "usr/member/modify";
+	}
+	
 	@RequestMapping("/usr/member/loginCheck")
 	public String loginCheck() {
 		
