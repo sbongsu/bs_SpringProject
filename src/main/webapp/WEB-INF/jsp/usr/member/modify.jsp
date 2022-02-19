@@ -10,15 +10,6 @@
 			return;
 		}
 
-		form.nickName.value = form.nickName.value.trim();
-
-		if (form.nickName.value.length == 0) {
-			alert('닉네임을 입력해주세요.')
-			form.nickname.focus();
-
-			return;
-		}
-		
 		form.loginPw.value = form.loginPw.value.trim();
 
 		if (form.loginPw.value.length > 0) {
@@ -37,6 +28,15 @@
 
 				return;
 			}
+		}
+
+		form.nickName.value = form.nickName.value.trim();
+
+		if (form.nickName.value.length == 0) {
+			alert('닉네임을 입력해주세요.')
+			form.nickName.focus();
+
+			return;
 		}
 
 		form.email.value = form.email.value.trim();
@@ -83,27 +83,26 @@
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>New Password</span>
-          <input type="password" name="loginPw" placeholder="새 비밀번호를 입력해주세요" " class="input input-bordered">
+          <input type="password" name="loginPw" placeholder="새 비밀번호를 입력해주세요" class="input input-bordered">
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>New Password Check</span>
-          <input type="password" name="loginPwConfirm" placeholder="새 비밀번호를 확인해주세요" " class="input input-bordered">
+          <input type="password" name="loginPwConfirm" placeholder="새 비밀번호를 확인해주세요" class="input input-bordered">
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>Email</span>
-          <input type="text" name="email" type="email" value="${rq.loginedMember.email }" " class="input input-bordered">
+          <input type="text" name="email" type="email" value="${rq.loginedMember.email }" class="input input-bordered">
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>Cell Phone Number</span>
-          <input type="text" name="phoneNum" type="tel" value="${rq.loginedMember.phoneNum }"
-            " class="input input-bordered"
-          >
+          <input type="text" name="phoneNum" type="tel" value="${rq.loginedMember.phoneNum }" class="input input-bordered">
         </label>
         <div class="mx-auto mt-2">
-          <button class="btn btn-ghost mx-auto float-left">회원정보수정</button>
-          <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+          <button type="submit" class="btn btn-ghost mx-auto float-left">회원정보수정</button>
+          <button type="button" class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
         </div>
       </div>
     </div>
+  </div>
 </form>
 <%@ include file="../common/foot.jspf"%>

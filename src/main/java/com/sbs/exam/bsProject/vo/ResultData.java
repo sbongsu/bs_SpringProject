@@ -2,7 +2,7 @@ package com.sbs.exam.bsProject.vo;
 
 import lombok.Getter;
 
-public class ResultDate {
+public class ResultData {
 
 	@Getter
 	private String resultCode;
@@ -11,12 +11,12 @@ public class ResultDate {
 	@Getter
 	private Object data1;
 	
-	public static ResultDate from(String resultCode, String msg) {
+	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode, msg, null);
 	}
 	
-	public static ResultDate from(String resultCode, String msg, Object data1) {
-		ResultDate rd = new ResultDate();
+	public static ResultData from(String resultCode, String msg, Object data1) {
+		ResultData rd = new ResultData();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
 		rd.data1 = data1;

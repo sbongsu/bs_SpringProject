@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.exam.bsProject.service.MemberService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Member;
+import com.sbs.exam.bsProject.vo.ResultData;
 import com.sbs.exam.bsProject.vo.Rq;
 
 @Controller
@@ -36,31 +37,31 @@ public class MemberController {
 	public String doLogin(String loginId, String loginPw) {
 		
 		if(rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그인 되었습니다.");
+			return rq.jsHistoryBack("이미 로그인 되었습니다.");
 		}
 		
 		if(Ut.empty(loginId)) {
-			return Ut.jsHistoryBack("아이디를 입력해주세요");
+			return rq.jsHistoryBack("아이디를 입력해주세요");
 			}
 		
 		if(Ut.empty(loginPw)) {
-			return Ut.jsHistoryBack("비밀번호를 입력해주세요");
+			return rq.jsHistoryBack("비밀번호를 입력해주세요");
 			}
 		
 		Member member = memberService.getMemberId(loginId);
 		
 		if(member == null) {
-			return Ut.jsHistoryBack("등록되지 않은 아이디입니다.");
+			return rq.jsHistoryBack("등록되지 않은 아이디입니다.");
 		}
 		
 		if(member.getLoginPw().equals(loginPw) == false) {
-			return Ut.jsHistoryBack("비밀번호를 확인해주세요");
+			return rq.jsHistoryBack("비밀번호를 확인해주세요");
 		}
 		
 		rq.login(member);
 		
 		
-		return Ut.jsReplace("로그인 성공", "/");
+		return rq.jsReplace("로그인 성공", "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
@@ -68,12 +69,12 @@ public class MemberController {
 	public String doLogout() {
 		
 		if(!rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그아웃 되었습니다.");
+			return rq.jsHistoryBack("이미 로그아웃 되었습니다.");
 		}
 		
 		rq.logout();
 		
-		return Ut.jsReplace("로그아웃 되었습니다", "/");
+		return rq.jsReplace("로그아웃 되었습니다", "/");
 	}
 	
 	@RequestMapping("/usr/member/showMyPage")
@@ -88,6 +89,30 @@ public class MemberController {
 		return "usr/member/modify";
 	}
 	
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify(String loginPw, String nickName, String email, String phoneNum) {
+		if (Ut.empty(loginPw)) {
+			loginPw = null;
+		}
+
+		if (Ut.empty(nickName)) {
+			return rq.jsHistoryBack("nickname(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(email)) {
+			return rq.jsHistoryBack("email(을)를 입력해주세요.");
+		}
+
+		if (Ut.empty(phoneNum)) {
+			return rq.jsHistoryBack("phoneNum(을)를 입력해주세요.");
+		}
+		
+		ResultData modifyRd = memberService.modify(rq.getLoginedId(), loginPw, nickName, email, phoneNum);
+
+		return rq.jsReplace(modifyRd.getMsg(), "/");
+	}
+	
 	@RequestMapping("/usr/member/loginCheck")
 	public String loginCheck() {
 		
@@ -99,11 +124,11 @@ public class MemberController {
 	public String doLoginCheck(String loginPw, String replaceUri) {
 		
 		if(Ut.empty(loginPw)) {
-			return rq.historyBackJsOnView("비밀번호를 입력해주세요.");
+			return rq.jsHistoryBack("비밀번호를 입력해주세요.");
 			}
 		
 		if(rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
-			return rq.historyBackJsOnView("비밀번호가 일치하지 않습니다.");
+			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
 		

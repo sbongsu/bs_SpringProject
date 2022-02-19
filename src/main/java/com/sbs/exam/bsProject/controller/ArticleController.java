@@ -13,7 +13,7 @@ import com.sbs.exam.bsProject.service.BoardService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
 import com.sbs.exam.bsProject.vo.Board;
-import com.sbs.exam.bsProject.vo.ResultDate;
+import com.sbs.exam.bsProject.vo.ResultData;
 import com.sbs.exam.bsProject.vo.Rq;
 
 @Controller
@@ -40,16 +40,16 @@ public class ArticleController {
 	public String doWrite(int boardId, String title, String body) {
 		
 		if(Ut.empty(title)) {
-			return Ut.jsHistoryBack("제목을 입력해주세요");
+			return rq.jsHistoryBack("제목을 입력해주세요");
 		}
 		
 		if(Ut.empty(body)) {
-			return Ut.jsHistoryBack("내용을입력해주세요");
+			return rq.jsHistoryBack("내용을입력해주세요");
 		}
 		
-		ResultDate writeRd = articleService.doWrite(rq.getLoginedId(),boardId,title, body);
+		ResultData writeRd = articleService.doWrite(rq.getLoginedId(),boardId,title, body);
 		
-		return Ut.jsReplace(writeRd.getMsg(), Ut.f("../article/list?boardId=%d&page=1", boardId));
+		return rq.jsReplace(writeRd.getMsg(), Ut.f("../article/list?boardId=%d&page=1", boardId));
 	}
 	
 	@RequestMapping("/usr/article/list")
@@ -57,7 +57,7 @@ public class ArticleController {
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board == null) {
-			return Ut.jsHistoryBack("존재하지 않는 게시판입니다.");
+			return rq.jsHistoryBack("존재하지 않는 게시판입니다.");
 		}
 		
 		int articlesCount = articleService.getArticlesCount(boardId);
@@ -108,16 +108,16 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		
 		if(article == null) {
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
 		
 		if(!article.isExtra__actorCanSee()) {
-			return "권한이 없습니다.";
+			return rq.jsHistoryBack("권한이 없습니다.");
 		}
 		
 		articleService.articleModify(id, title, body);
-		return Ut.jsReplace("게시물이 수정되었습니다",  Ut.f("../article/detail?id=%d", id));
+		return rq.jsReplace("게시물이 수정되었습니다",  Ut.f("../article/detail?id=%d", id));
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
@@ -127,15 +127,15 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		
 		if(article == null) {
-			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
 		
 		if(!article.isExtra__actorCanSee()) {
-			return "권한이 없습니다.";
+			return rq.jsHistoryBack("권한이 없습니다.");
 		}
 		
 		articleService.articleDelete(id);
-		return Ut.jsReplace("게시물이 삭제되었습니다", "/");
+		return rq.jsReplace("게시물이 삭제되었습니다", "/");
 	}
 }

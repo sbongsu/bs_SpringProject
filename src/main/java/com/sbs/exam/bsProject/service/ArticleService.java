@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.sbs.exam.bsProject.repository.ArticleRepository;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
-import com.sbs.exam.bsProject.vo.ResultDate;
+import com.sbs.exam.bsProject.vo.ResultData;
 
 @Service
 public class ArticleService {
@@ -58,10 +58,10 @@ public class ArticleService {
 		return articleRepository.getArticlesCount(boardId);
 	}
 
-	public ResultDate doWrite(int memberId, int boardId, String title, String body) {
+	public ResultData doWrite(int memberId, int boardId, String title, String body) {
 		articleRepository.doWrite(memberId,boardId,title,body);
 		int id = articleRepository.getLastInsertId();
-		return ResultDate.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id));
+		return ResultData.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id));
 		
 	}
 
