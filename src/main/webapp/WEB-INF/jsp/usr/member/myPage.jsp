@@ -3,7 +3,7 @@
 <c:set var="pageName" value="마이페이지" />
 <%@ include file="../common/head.jspf"%>
 
-  <div class="w-96 h-60 p-2 mx-auto mt-6 rounded-t-2xl rounded-b-2xl">
+  <div class="w-96 h-60 p-2 mx-auto mt-12 rounded-t-2xl rounded-b-2xl">
     <div class="form-control">
       <label class="label text-blue-400">
         <span class="label-text">마이페이지</span>
@@ -30,7 +30,7 @@
           <input type="text" disabled name="phoneNum" type="tel" value="${rq.loginedMember.phoneNum }" " class="input input-bordered">
         </label>
         <div class="mx-auto mt-2">
-          <button class="btn btn-ghost mx-auto float-left">회원정보수정</button>
+          <a href="/usr/member/loginCheck?replaceUri=/usr/member/showModify" class="btn btn-ghost mx-auto float-left">회원정보수정</a>
           <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
         </div>
       </div>

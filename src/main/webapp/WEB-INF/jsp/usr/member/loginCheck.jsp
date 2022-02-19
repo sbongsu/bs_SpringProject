@@ -4,6 +4,8 @@
 <%@ include file="../common/head.jspf"%>
 <form method="POST" action="../member/doLoginCheck">
   <div class="w-96 h-60 p-2 mx-auto mt-28 rounded-t-2xl rounded-b-2xl">
+  <input type="hidden" />
+  <input type="hidden" name="replaceUri" value="${param.replaceUri}" />
     <div class="form-control">
       <label class="label">
         <span class="label-text">비밀번호 확인</span>

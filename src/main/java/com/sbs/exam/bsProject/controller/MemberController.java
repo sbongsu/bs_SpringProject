@@ -96,7 +96,7 @@ public class MemberController {
 	
 	@RequestMapping("/usr/member/doLoginCheck")
 	@ResponseBody
-	public String doLoginCheck(String loginPw) {
+	public String doLoginCheck(String loginPw, String replaceUri) {
 		
 		if(Ut.empty(loginPw)) {
 			return rq.historyBackJsOnView("비밀번호를 입력해주세요.");
@@ -108,6 +108,6 @@ public class MemberController {
 		
 		
 		
-		return Ut.jsReplace("", "/");
+		return Ut.jsReplace("", replaceUri);
 	}
 }
