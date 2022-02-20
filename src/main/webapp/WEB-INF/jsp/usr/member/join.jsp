@@ -69,8 +69,8 @@
 	}
 </script>
 
-<form method="POST" action="../member/doModify" onsubmit="MemberJoin__submit(this); return false;">
-  <div class="w-96 h-60 p-2 mx-auto mt-6 rounded-t-2xl rounded-b-2xl">
+<form method="POST" action="../member/doJoin" onsubmit="MemberJoin__submit(this); return false;">
+  <div class="w-96 h-60 p-2 mx-auto mt-8 rounded-t-2xl rounded-b-2xl">
     <div class="form-control">
       <label class="label text-blue-400">
         <span class="label-text">회원가입</span>

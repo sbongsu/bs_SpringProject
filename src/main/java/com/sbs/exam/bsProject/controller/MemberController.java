@@ -27,6 +27,39 @@ public class MemberController {
 		return "usr/member/join";
 	}
 	
+	@RequestMapping("/usr/member/doJoin")
+	@ResponseBody
+	public String doJoin(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum) {
+		
+		if(Ut.empty(loginId)) {
+			return rq.jsHistoryBack("ID를 입력해주세요");
+		}
+		
+		if(Ut.empty(userName)) {
+			return rq.jsHistoryBack("이름을 입력해주세요");
+		}
+		
+		if(Ut.empty(nickName)) {
+			return rq.jsHistoryBack("닉네임을 입력해주세요");
+		}
+		
+		if(Ut.empty(loginPw)) {
+			return rq.jsHistoryBack("비밀번호를 입력해주세요");
+		}
+		
+		if(Ut.empty(email)) {
+			return rq.jsHistoryBack("이메일을 입력해주세요");
+		}
+		
+		if(Ut.empty(phoneNum)) {
+			return rq.jsHistoryBack("휴대폰번호를 입력해주세요");
+		}
+		
+		memberService.join(loginId, userName, nickName, loginPw, email, phoneNum);
+		
+		return "dd";
+	}
+	
 	@RequestMapping("/usr/member/showLogin")
 	public String showLogin() {
 		

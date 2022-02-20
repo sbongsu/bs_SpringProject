@@ -1,5 +1,6 @@
 package com.sbs.exam.bsProject.repository;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -46,5 +47,18 @@ public interface MemberRepository {
 			</script>
 			""")
 	public void modify(int id, String loginPw, String nickName, String email, String phoneNum);
+
+	@Insert("""
+			INSERT INTO `member`
+			SET loginId = #{loginId},
+			userName = #{userName},
+			nickName = #{nickName},
+			loginPw = #{loginPw},
+			email = #{email},
+			phoneNum = #{phoneNum},
+			regDate = NOW(),
+			updateDate = NOW()
+			""")
+	public void join(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum);
 
 }

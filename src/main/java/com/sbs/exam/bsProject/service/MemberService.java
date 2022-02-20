@@ -32,4 +32,9 @@ public class MemberService {
 		return ResultData.from("S-1", "회원정보가 수정되었습니다.");
 	}
 
+	public void join(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum) {
+		memberRepository.join(loginId, userName, nickName, loginPw, email, phoneNum);
+		
+	}
+
 }
