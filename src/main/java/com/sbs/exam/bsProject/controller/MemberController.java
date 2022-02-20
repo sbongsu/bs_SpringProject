@@ -55,9 +55,14 @@ public class MemberController {
 			return rq.jsHistoryBack("휴대폰번호를 입력해주세요");
 		}
 		
-		memberService.join(loginId, userName, nickName, loginPw, email, phoneNum);
+		ResultData joinRd = memberService.join(loginId, userName, nickName, loginPw, email, phoneNum);
 		
-		return "dd";
+		if(joinRd.isFail()) {
+		
+			return rq.jsHistoryBack(joinRd.getMsg());
+		}
+		
+		return rq.jsReplace(joinRd.getMsg(), "/");
 	}
 	
 	@RequestMapping("/usr/member/showLogin")

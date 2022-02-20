@@ -61,4 +61,13 @@ public interface MemberRepository {
 			""")
 	public void join(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum);
 
+	@Select("SELECT LAST_INSERT_ID()")
+	int getLastInsertId();
+
+	@Select("""
+			SELECT *
+			FROM `member` AS m
+			WHERE m.nickName = #{nickName}
+			""")
+	public Member getMemberByNickName(String nickName);
 }
