@@ -70,4 +70,12 @@ public interface MemberRepository {
 			WHERE m.nickName = #{nickName}
 			""")
 	public Member getMemberByNickName(String nickName);
+
+	@Select("""
+			SELECT *
+			FROM `member` AS m
+			WHERE m.userName = #{userName}
+			AND m.email = #{email}
+			""")
+	public Member getMemberByNameAndEmail(String userName, String email);
 }

@@ -45,6 +45,12 @@ public class MemberService {
 			return ResultData.from("F-1", "이미 사용중인 닉네임입니다.");
 		}
 		
+		// 중복 회원 확인하기(이름+이메일)
+		oldUserId = memberRepository.getMemberByNameAndEmail(userName,email);
+		if(oldUserId != null) {
+			return ResultData.from("F-1", "이미 사용중인 이름과 이메일입니다.");
+		}
+		
 		memberRepository.join(loginId, userName, nickName, loginPw, email, phoneNum);
 		
 		return ResultData.from("S-1", "회원가입완료!");
