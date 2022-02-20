@@ -91,11 +91,11 @@
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>Email</span>
-          <input type="text" name="email" type="email" value="${rq.loginedMember.email }" class="input input-bordered">
+          <input type="email" name="email" value="${rq.loginedMember.email }" class="input input-bordered">
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>Cell Phone Number</span>
-          <input type="text" name="phoneNum" type="tel" value="${rq.loginedMember.phoneNum }" class="input input-bordered">
+          <input type="tel" name="phoneNum" value="${rq.loginedMember.phoneNum }" class="input input-bordered">
         </label>
         <div class="mx-auto mt-2">
           <button type="submit" class="btn btn-ghost mx-auto float-left">회원정보수정</button>

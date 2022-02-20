@@ -21,7 +21,7 @@ public class MemberController {
 		this.rq = rq;
 	}
 	
-	@RequestMapping("/usr/member/join")
+	@RequestMapping("/usr/member/showJoin")
 	public String showJoin() {
 		
 		return "usr/member/join";
