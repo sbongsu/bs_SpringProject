@@ -169,7 +169,11 @@ public class MemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
-		
+		if ( replaceUri.equals("../member/showModify") ) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedId());
+
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey; 
+		}
 		
 		return Ut.jsReplace("", replaceUri);
 	}

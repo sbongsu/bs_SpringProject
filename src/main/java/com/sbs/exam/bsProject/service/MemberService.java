@@ -3,6 +3,7 @@ package com.sbs.exam.bsProject.service;
 import org.springframework.stereotype.Service;
 
 import com.sbs.exam.bsProject.repository.MemberRepository;
+import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Member;
 import com.sbs.exam.bsProject.vo.ResultData;
 
@@ -10,8 +11,10 @@ import com.sbs.exam.bsProject.vo.ResultData;
 public class MemberService {
 
 	private MemberRepository memberRepository;
+	private AttrService attrService;
 	
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(AttrService attrService, MemberRepository memberRepository) {
+		this.attrService = attrService;
 		this.memberRepository = memberRepository;
 	}
 
@@ -55,6 +58,14 @@ public class MemberService {
 		
 		return ResultData.from("S-1", "회원가입완료!");
 		
+	}
+
+	public String genMemberModifyAuthKey(int actorId) {
+		String memberModifyAuthKey = Ut.getTempPassword(10);
+
+		attrService.setValue("member", actorId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDateStrLater(60 * 5));
+
+		return memberModifyAuthKey;
 	}
 
 }
