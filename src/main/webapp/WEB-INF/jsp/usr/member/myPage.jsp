@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.sbs.exam.bsProject.util.Ut" %>
+
 <c:set var="pageName" value="마이페이지" />
 <%@ include file="../common/head.jspf"%>
 
@@ -30,7 +32,7 @@
           <input type="text" disabled name="phoneNum" type="tel" value="${rq.loginedMember.phoneNum }" " class="input input-bordered">
         </label>
         <div class="mx-auto mt-2">
-          <a href="/usr/member/loginCheck?replaceUri=/usr/member/showModify" class="btn btn-ghost mx-auto float-left">회원정보수정</a>
+          <a href="/usr/member/loginCheck?replaceUri=${Ut.getUriEncoded('../member/showModify')}" class="btn btn-ghost mx-auto float-left">회원정보수정</a>
           <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
         </div>
       </div>
