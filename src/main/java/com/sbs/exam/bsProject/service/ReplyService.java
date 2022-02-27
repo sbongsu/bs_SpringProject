@@ -21,15 +21,16 @@ public class ReplyService {
 		this.replyRepository = replyRepository;
 		this.rq = rq;
 	}
+	
 	public ResultData doWrite(int actor, String relTypeCode, int relId, String body) {
 		
 		replyRepository.doWrite(actor, relTypeCode, relId, body);
 		int id = replyRepository.getLastInsertId();
 		return ResultData.from("S-1",Ut.f("%d번 댓글이 생성되었습니다.", id));
 	}
-	public List<Reply> getForPrintReplies(Member loginedMember, String relTypeCode, int relId) {
+	
+	public List<Reply> getForPrintReplies(Member actor, String relTypeCode, int relId) {
 		return replyRepository.getForPrintReplies(relTypeCode, relId);
-		
 	}
 
 }

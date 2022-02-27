@@ -3,20 +3,20 @@
 <c:set var="pageName" value="게시물상세보기" />
 <%@ include file="../common/head.jspf"%>
 <script>
-let ReplyWrite__submitFormDone = false;
-function ReplyWrite__submitForm(form){
-	
-	form.body.value = form.body.value.trim();
-	
-	if(form.body.value.length == 0){
-		alert('댓글을 입력해주세요');
-		form.body.focus();
-		return;
+	let ReplyWrite__submitFormDone = false;
+	function ReplyWrite__submitForm(form) {
+
+		form.body.value = form.body.value.trim();
+
+		if (form.body.value.length == 0) {
+			alert('댓글을 입력해주세요');
+			form.body.focus();
+			return;
+		}
+
+		ReplyWrite__submitFormDone = true;
+		form.submit();
 	}
-	
-	ReplyWrite__submitFormDone = true;
-	form.submit();
-}
 </script>
 <%--게시물 상세보기--%>
 <section>
@@ -51,11 +51,21 @@ function ReplyWrite__submitForm(form){
 </section>
 
 <section>
-<p>댓글리스트(${repliesCount})</p>
+  <div class="overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
+    <p class="mt-2">댓글리스트(${repliesCount})</p>
+    <c:forEach var="reply" items="${replies }">
+      <div class="border border-r-0 border-l-0 border-t-0 border-gray-100 mt-1 p-3">
+        <p>${reply.extra__writerName }
+        <span class="text-xs text-gray-400">${reply.regDate }</span>
+        </p>
+        <p>${reply.body }</p>
+      </div>
+    </c:forEach>
+  </div>
 </section>
 
 <section>
-  <div class="overflow-x-auto w-3/4 mt-2 ml-2 p-3">
+  <div class="overflow-x-auto w-3/4 ml-2 p-3 bg-gray-50 rounded-lg">
     <p>댓글작성</p>
 
     <%--댓글 로그인 후 작성 --%>
