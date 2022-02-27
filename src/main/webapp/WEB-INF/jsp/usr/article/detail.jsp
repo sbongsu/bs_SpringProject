@@ -2,6 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageName" value="게시물상세보기" />
 <%@ include file="../common/head.jspf"%>
+<script>
+let ReplyWrite__submitFormDone = false;
+function ReplyWrite__submitForm(form){
+	
+	form.body.value = form.body.value.trim();
+	
+	if(form.body.value.length == 0){
+		alert('댓글을 입력해주세요');
+		form.body.focus();
+		return;
+	}
+	
+	ReplyWrite__submitFormDone = true;
+	form.submit();
+}
+</script>
 <%--게시물 상세보기--%>
 <section>
   <div class="overflow-x-auto mt-12 w-3/4">
@@ -45,11 +61,11 @@
       </p>
     </c:if>
     <c:if test="${rq.isLogined() }">
-      <form method="POST" action="../reply/dowrite">
+      <form method="POST" action="../reply/dowrite" onsubmit="ReplyWrite__submitForm(this); return false;">
         <input type="hidden" name="relTypeCode" value="article" />
         <input type="hidden" name="relId" value="${article.id}" />
         <div>
-          <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" placeholder="댓글을 입력해주세요"></textarea>
+          <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body" placeholder="댓글을 입력해주세요"></textarea>
           <div>
             <button class="btn btn-active float-right mr-14">댓글등록</button>
           </div>
