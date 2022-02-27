@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.bsProject.service.ArticleService;
 import com.sbs.exam.bsProject.service.BoardService;
+import com.sbs.exam.bsProject.service.ReplyService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
 import com.sbs.exam.bsProject.vo.Board;
+import com.sbs.exam.bsProject.vo.Reply;
 import com.sbs.exam.bsProject.vo.ResultData;
 import com.sbs.exam.bsProject.vo.Rq;
 
@@ -22,11 +24,13 @@ public class ArticleController {
 	private ArticleService articleService;
 	private Rq rq;
 	private BoardService boardService;
+	private ReplyService replyService;
 	
-	public ArticleController(ArticleService articleService, Rq rq, BoardService boardService) {
+	public ArticleController(ArticleService articleService, Rq rq, BoardService boardService, ReplyService replyService) {
 		this.articleService = articleService;
 		this.rq = rq;
 		this.boardService = boardService;
+		this.replyService =replyService;
 	}
 	
 	@RequestMapping("/usr/article/write")
@@ -78,7 +82,10 @@ public class ArticleController {
 	public String showDetail(Model model, int id) {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(),"article",id);
+		int repliesCount = replies.size();
 		
+		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("article", article);
 		
 		return "usr/article/detail";

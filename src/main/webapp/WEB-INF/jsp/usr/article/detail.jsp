@@ -49,6 +49,11 @@ function ReplyWrite__submitForm(form){
     </div>
   </div>
 </section>
+
+<section>
+<p>댓글리스트(${repliesCount})</p>
+</section>
+
 <section>
   <div class="overflow-x-auto w-3/4 mt-2 ml-2 p-3">
     <p>댓글작성</p>
