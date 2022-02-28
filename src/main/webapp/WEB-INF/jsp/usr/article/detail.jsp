@@ -16,6 +16,7 @@
 
 		ReplyWrite__submitFormDone = true;
 		form.submit();
+		
 	}
 </script>
 <%--게시물 상세보기--%>
@@ -50,15 +51,30 @@
   </div>
 </section>
 
+<script>
+$(document).ready(function(){
+	$('.reply-modify-but').click(function(){
+		
+		$('reply-modify-View').toggleClass('active');
+		$('.reply-body').toggleClass('active');
+	})
+	
+})
+</script>
+
 <section>
   <div class="overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
     <p class="mt-2">댓글리스트(${repliesCount})</p>
     <c:forEach var="reply" items="${replies }">
       <div class="border border-r-0 border-l-0 border-t-0 border-gray-100 mt-1 p-3">
         <p>${reply.extra__writerName }
-        <span class="text-xs text-gray-400">${reply.regDate }</span>
+          <span class="text-xs text-gray-400">${reply.regDate }</span>
+        <div class="w-10 h-5 bg-red-300 float-right reply-modify-but"><button>수정</button></div>
         </p>
-        <p>${reply.body }</p>
+        <p class="reply-body">${reply.body }</p>
+        <form class="reply-modify-View" method="POST" action="../reply/domodify">
+        <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body" >${reply.body }</textarea>
+        </form>
       </div>
     </c:forEach>
   </div>
