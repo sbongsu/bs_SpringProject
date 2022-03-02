@@ -23,7 +23,7 @@ public class ArticleService {
 		int pageStart = (page - 1) * articlesInAPage;
 		int pageLast = articlesInAPage;
 		
-		return articleRepository.getArticles(boardId, pageStart, pageLast);
+		return articleRepository.getForPrintArticles(boardId, pageStart, pageLast);
 	}
 
 	public Article getForPrintArticle(int actor, int id) {

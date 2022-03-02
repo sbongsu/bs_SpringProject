@@ -58,12 +58,16 @@
         <%--게시물 제목 --%>
         <p class="text-2xl text-blue-500">${article.title}</p>
 
-        <%--게시물 작성자 내용 --%>
+        <%--게시물 작성자 내용, 조회수, 추천수 --%>
         <span class="text-xs">${article.extra__writerName }</span>
         <span class="text-xs ml-1">${article.regDate.substring(2, 16) }</span>
         <span class="text-xs ml-1">
           조회수 :
           <span class="badge badge-xs p-1 article-detail__hit-count">${article.hitCount }</span>
+        </span>
+        <span class="text-xs ml-1">
+          추천수 :
+          <span class="badge badge-xs p-1 article-detail__hit-count">${article.extra__goodReactionPoint }</span>
         </span>
 
 
