@@ -140,10 +140,6 @@ ALTER TABLE `attr` ADD INDEX (`relTypeCode`, `typeCode`, `type2Code`);
 # attr에 만료날짜 추가
 ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
 
-# 게시물 테이블 hitCount(조회수) 칼럼을 추가
-ALTER TABLE article
-ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
-
 # 댓글 테이블
 CREATE TABLE reply (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -187,9 +183,65 @@ relTypeCode = 'article',
 relId = 2,
 `body` = '댓글 4';
 
-SELECT * FROM reply;
-SELECT * FROM board;
-SELECT * FROM `member`;
-SELECT * FROM article;
-SELECT * FROM `attr`;
+# 게시물 테이블 hitCount(조회수) 칼럼을 추가
+ALTER TABLE article
+ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+
+# 리액션포인트 테이블
+CREATE TABLE reactionPoint (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(30) NOT NULL,
+    relId INT(10) UNSIGNED NOT NULL,
+    `point` SMALLINT(2) NOT NULL
+);
+
+# 리액션포인트 테스트 데이터
+## 1번 회원이 107번 article 에 대해서 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 107,
+`point` = -1;
+
+## 1번 회원이 106번 article 에 대해서 좋아요.
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 106,
+`point` = 1;
+
+## 2번 회원이 107번 article 에 대해서 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 107,
+`point` = -1;
+
+## 2번 회원이 106번 article 에 대해서 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 106,
+`point` = 1;
+
+## 3번 회원이 107번 article 에 대해서 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 107,
+`point` = 1;
 
