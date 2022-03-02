@@ -65,6 +65,11 @@ public class ArticleService {
 		
 	}
 
+	public ResultData increaseHitCount(int id) {
+		articleRepository.increaseHitCount(id);
+		return ResultData.from("S-1", "조회수가 증가하였습니다.");
+	}
+
 
 
 }

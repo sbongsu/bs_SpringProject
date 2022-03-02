@@ -32,6 +32,8 @@
         <%--게시물 작성자 내용 --%>
         <span class="text-xs">${article.extra__writerName }</span>
         <span class="text-xs ml-1">${article.regDate.substring(2, 16) }</span>
+        <span class="text-xs ml-1">조회수 : ${article.hitCount }</span>
+        
 
         <%--게시물 내용 --%>
         <div class="mt-6">${article.body }</div>

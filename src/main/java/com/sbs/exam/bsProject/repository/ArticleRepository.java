@@ -85,4 +85,11 @@ public interface ArticleRepository {
 			SELECT LAST_INSERT_ID()
 			""")
 	int getLastInsertId();
+
+	@Update("""
+			UPDATE article
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			""")
+	int increaseHitCount(int id);
 }
