@@ -3,6 +3,28 @@
 <c:set var="pageName" value="게시물상세보기" />
 <%@ include file="../common/head.jspf"%>
 <script>
+  const params = {};
+  params.id = parseInt('${param.id}');
+</script>
+
+<script>
+  function ArticleDetail__increaseHitCount() {
+    $.get('../article/doIncreaseHitCountAjax', {
+      id : params.id,
+      ajaxMode: 'Y'
+    }, function(data) {
+      $('.article-detail__hit-count').empty().html(data.data1);
+    }, 'json');
+  }
+  
+  $(function() {
+
+     ArticleDetail__increaseHitCount();
+    
+  })
+</script>
+
+<script>
 	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form) {
 
@@ -32,7 +54,7 @@
         <%--게시물 작성자 내용 --%>
         <span class="text-xs">${article.extra__writerName }</span>
         <span class="text-xs ml-1">${article.regDate.substring(2, 16) }</span>
-        <span class="text-xs ml-1">조회수 : ${article.hitCount }</span>
+        <span class="text-xs ml-1">조회수 : <span class="badge badge-xs p-1 article-detail__hit-count">${article.hitCount }</span></span>
         
 
         <%--게시물 내용 --%>

@@ -92,7 +92,7 @@ public class ArticleController {
 		return "usr/article/detail";
 	}
 	
-	@RequestMapping("/usr/article/doIncreaseHitCountRd")
+	@RequestMapping("/usr/article/doIncreaseHitCountAjax")
 	@ResponseBody
 	public ResultData doIncreaseHitCountRd(int id) {
 		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
