@@ -9,16 +9,19 @@ public class ResultData {
 	@Getter
 	private String msg;
 	@Getter
+	private String data1Name;
+	@Getter
 	private Object data1;
 	
 	public static ResultData from(String resultCode, String msg) {
-		return from(resultCode, msg, null);
+		return from(resultCode, msg, null, null);
 	}
 	
-	public static ResultData from(String resultCode, String msg, Object data1) {
+	public static ResultData from(String resultCode, String msg, String data1Name, Object data1) {
 		ResultData rd = new ResultData();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
+		rd.data1Name = data1Name;
 		rd.data1 = data1;
 		
 		return rd;

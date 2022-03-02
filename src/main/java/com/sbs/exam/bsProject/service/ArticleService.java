@@ -66,8 +66,13 @@ public class ArticleService {
 	}
 
 	public ResultData increaseHitCount(int id) {
-		articleRepository.increaseHitCount(id);
-		return ResultData.from("S-1", "조회수가 증가하였습니다.");
+		int affectedRowsCount  = articleRepository.increaseHitCount(id);
+		
+		if(affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다.", "affectedRowsCount", affectedRowsCount);
+		}
+			
+		return ResultData.from("S-1", "조회수가 증가되었습니다.", "affectedRowsCount", affectedRowsCount);
 	}
 
 

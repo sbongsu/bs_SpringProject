@@ -82,9 +82,13 @@ public class ArticleController {
 	public String showDetail(Model model, int id) {
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
-		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
 		int repliesCount = replies.size();
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if(increaseHitCountRd.isFail()) {
+			return rq.historyBackJsOnView(increaseHitCountRd.getMsg());
+		}
 
 		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("replies", replies);
