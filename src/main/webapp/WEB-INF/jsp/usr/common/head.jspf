@@ -16,7 +16,7 @@
 <link href="https://cdn.jsdelivr.net/npm/daisyui@1.16.2/dist/full.css" rel="stylesheet" type="text/css" />
 
 <!-- 폰트어썸 -->
-<link rel="stylesheet" href="https://cdnjs.com/libraries/font-awesome" />
+<script src="https://kit.fontawesome.com/83fdd9cf00.js" crossorigin="anonymous"></script>
 <!-- 사이트 공통 CSS -->
 <link rel="stylesheet" href="/resources/common.css">
 

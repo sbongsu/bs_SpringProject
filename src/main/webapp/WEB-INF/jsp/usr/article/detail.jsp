@@ -51,9 +51,9 @@
 <%--게시물 상세보기--%>
 <section>
   <div class="overflow-x-auto mt-12 w-3/4">
-    <div class=" border-2 border-gray-200 rounded-lg">
+    <div class=" border-2 border-gray-200 rounded-lg p-9 pb-0 pt-0">
 
-      <div class="mt-12 ml-9 h-96">
+      <div class="mt-12 h-96">
 
         <%--게시물 제목 --%>
         <p class="text-2xl text-blue-500">${article.title}</p>
@@ -70,22 +70,36 @@
           <span class="badge badge-xs p-1 article-detail__hit-count">${article.extra__goodReactionPoint }</span>
         </span>
 
-
         <%--게시물 내용 --%>
         <div class="mt-6">${article.body }</div>
+
       </div>
-      <%--수정, 삭제버튼--%>
-      <c:if test="${article.extra__actorCanSee }">
-        <div class="float-right mt-1">
-          <a href="../article/modify?id=${article.id }" onclick="if ( confirm('정말 수정하시겠습니까?') == false ) return false;"
-            class="btn btn-ghost"
-          >수정</a>
-          <a href="../article/doDelete?id=${article.id }"
-            onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;" class="btn btn-ghost"
-          >삭제</a>
-        </div>
-      </c:if>
+      <%--좋아요, 싫어요 --%>
+      <div class="flex items-center justify-center p-2">
+        <button class="btn btn-info btn-md btn-circle">
+          👍
+          <br>
+          추천
+        </button>
+        <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
+        <button class="btn btn-error btn-md btn-circle">
+          👎
+          <br>
+          비추천
+        </button>
+      </div>
     </div>
+    <%--수정, 삭제버튼--%>
+    <c:if test="${article.extra__actorCanSee }">
+      <div class="float-right mt-1">
+        <a href="../article/modify?id=${article.id }" onclick="if ( confirm('정말 수정하시겠습니까?') == false ) return false;"
+          class="btn btn-ghost"
+        >수정</a>
+        <a href="../article/doDelete?id=${article.id }" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;"
+          class="btn btn-ghost"
+        >삭제</a>
+      </div>
+    </c:if>
   </div>
 </section>
 
@@ -117,13 +131,9 @@
         </form>
       </div>
     </c:forEach>
-  </div>
-</section>
 
-<section>
-  <div class="overflow-x-auto w-3/4 ml-2 p-3 bg-gray-50 rounded-lg">
-    <p>댓글작성</p>
-
+    <%--댓글작성 --%>
+    <p class="mt-2">댓글작성</p>
     <%--댓글 로그인 후 작성 --%>
     <c:if test="${!rq.isLogined() }">
       <p>
@@ -147,4 +157,5 @@
     </c:if>
   </div>
 </section>
+
 <%@ include file="../common/foot.jspf"%>

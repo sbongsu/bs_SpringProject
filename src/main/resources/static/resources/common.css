@@ -23,7 +23,7 @@ html>body {
   text-underline-position: under;
 }
 body{
-	min-width: 800px;
+	min-width: 1080px;
 	height: 100%
 }
 .reply-body.active{
