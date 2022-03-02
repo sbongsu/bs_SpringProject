@@ -84,17 +84,24 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
 		int repliesCount = replies.size();
-		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
-		
-		if(increaseHitCountRd.isFail()) {
-			return rq.historyBackJsOnView(increaseHitCountRd.getMsg());
-		}
 
 		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("replies", replies);
 		model.addAttribute("article", article);
 		
 		return "usr/article/detail";
+	}
+	
+	@RequestMapping("/usr/article/doIncreaseHitCountRd")
+	@ResponseBody
+	public ResultData doIncreaseHitCountRd(int id) {
+		ResultData increaseHitCountRd = articleService.increaseHitCount(id);
+
+		if (increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+
+		return ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(), "hitCount", articleService.getArticleHitCount(id));
 	}
 	
 	@RequestMapping("/usr/article/modify")
