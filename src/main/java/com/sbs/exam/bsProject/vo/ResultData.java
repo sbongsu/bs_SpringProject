@@ -12,6 +12,10 @@ public class ResultData {
 	private String data1Name;
 	@Getter
 	private Object data1;
+	@Getter
+	private String data2Name;
+	@Getter
+	private Object data2;
 	
 	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode, msg, null, null);
@@ -33,5 +37,10 @@ public class ResultData {
 	
 	public boolean isFail() {
 		return isSuccess() == false;
+	}
+
+	public void setData2(String dataName, Object data) {
+		data2Name = dataName;
+		data2 = data;
 	}
 }

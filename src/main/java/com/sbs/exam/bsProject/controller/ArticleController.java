@@ -101,7 +101,10 @@ public class ArticleController {
 			return increaseHitCountRd;
 		}
 
-		return ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(), "hitCount", articleService.getArticleHitCount(id));
+		ResultData rd= ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(), "hitCount", articleService.getArticleHitCount(id));
+		
+		rd.setData2("ArticleId", id);
+		return rd;
 	}
 	
 	@RequestMapping("/usr/article/modify")
