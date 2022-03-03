@@ -84,7 +84,9 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
 		int repliesCount = replies.size();
+		boolean actorCanSeeReactionPoint = articleService.actorCanSeeReactionPoint(rq.getLoginedId(),id);
 
+		model.addAttribute("actorCanSeeReactionPoint", actorCanSeeReactionPoint);
 		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("replies", replies);
 		model.addAttribute("article", article);

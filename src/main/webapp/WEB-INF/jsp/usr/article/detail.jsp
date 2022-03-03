@@ -76,17 +76,25 @@
       </div>
       <%--좋아요, 싫어요 --%>
       <div class="flex items-center justify-center p-2">
+      
+      <c:if test="${actorCanSeeReactionPoint }">
         <button class="btn btn-info btn-md btn-circle">
           👍
           <br>
           추천
         </button>
+        </c:if>
+        
+        <%--추천수 --%>
         <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
+        
+        <c:if test="${actorCanSeeReactionPoint }">
         <button class="btn btn-error btn-md btn-circle">
           👎
           <br>
           비추천
         </button>
+        </c:if>
       </div>
     </div>
     <%--수정, 삭제버튼--%>
