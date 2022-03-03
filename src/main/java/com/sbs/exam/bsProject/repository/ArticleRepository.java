@@ -121,15 +121,4 @@ public interface ArticleRepository {
 			WHERE id = #{id}
 			""")
 	int getArticleHitCount(int id);
-
-	@Select("""
-			<script>
-			SELECT SUM(point)
-			FROM reactionPoint
-			WHERE memberId = #{actor}
-			AND relTypeCode = 'article'
-			AND relId = #{relId}
-			</script>
-			""")
-	int getSumReactionPointByMemberId(int relId, int actor);
 }

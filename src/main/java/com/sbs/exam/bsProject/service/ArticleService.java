@@ -79,11 +79,4 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
-	public boolean actorCanSeeReactionPoint(int actor, int relId) {
-		
-		return articleRepository.getSumReactionPointByMemberId(relId, actor) == 0;
-	}
-
-
-
 }

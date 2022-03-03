@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.exam.bsProject.service.ArticleService;
 import com.sbs.exam.bsProject.service.BoardService;
+import com.sbs.exam.bsProject.service.ReactionPointService;
 import com.sbs.exam.bsProject.service.ReplyService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Article;
@@ -22,15 +23,17 @@ import com.sbs.exam.bsProject.vo.Rq;
 public class ArticleController {
 
 	private ArticleService articleService;
-	private Rq rq;
 	private BoardService boardService;
 	private ReplyService replyService;
+	private ReactionPointService reactionPointService;
+	private Rq rq;
 	
-	public ArticleController(ArticleService articleService, Rq rq, BoardService boardService, ReplyService replyService) {
+	public ArticleController(ArticleService articleService, BoardService boardService, ReplyService replyService, ReactionPointService reactionPointService, Rq rq) {
 		this.articleService = articleService;
-		this.rq = rq;
 		this.boardService = boardService;
 		this.replyService =replyService;
+		this.reactionPointService = reactionPointService;
+		this.rq = rq;
 	}
 	
 	@RequestMapping("/usr/article/write")
@@ -84,7 +87,7 @@ public class ArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(),id);
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
 		int repliesCount = replies.size();
-		boolean actorCanSeeReactionPoint = articleService.actorCanSeeReactionPoint(rq.getLoginedId(),id);
+		boolean actorCanSeeReactionPoint = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), id, "article");
 
 		model.addAttribute("actorCanSeeReactionPoint", actorCanSeeReactionPoint);
 		model.addAttribute("repliesCount", repliesCount);
