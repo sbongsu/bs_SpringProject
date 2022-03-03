@@ -72,4 +72,21 @@ public class ReactionPointService {
 		return ResultData.from("S-1", "비추천 완료!");
 	}
 
+	public ResultData deleteGoodReactionPoint(int actorId, int relId, String relTypeCode) {
+		if (actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요");
+		}
+		reactionPointRepository.deleteReactionPoint(actorId, relId, relTypeCode);
+		
+		return ResultData.from("S-1", "추천을(를) 취소하셨습니다.");
+	}
+
+	public ResultData deleteBadReactionPoint(int actorId, int relId, String relTypeCode) {
+		if (actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요");
+		}
+		reactionPointRepository.deleteReactionPoint(actorId, relId, relTypeCode);
+		return ResultData.from("S-1", "비추천을(를) 취소하셨습니다.");
+	}
+
 }

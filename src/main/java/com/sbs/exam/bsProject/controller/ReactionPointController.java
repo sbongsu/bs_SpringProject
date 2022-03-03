@@ -22,29 +22,65 @@ public class ReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
-		
-		if(actorCanMakeReactionPointRd.isFail()) {
-			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		if (actorCanMakeReactionPointRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
-		
-		ResultData addGoodReactionPointRd =reactionPointService.addGoodReactionPoint(rq.getLoginedId(), relId, relTypeCode);
-		
+
+		ResultData addGoodReactionPointRd = reactionPointService.addGoodReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
 		return rq.jsReplace(addGoodReactionPointRd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
-		
-		if(actorCanMakeReactionPointRd.isFail()) {
-			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		if (actorCanMakeReactionPointRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
-		
-		ResultData addBadReactionPointRd =reactionPointService.addBadReactionPoint(rq.getLoginedId(), relId, relTypeCode);
+
+		ResultData addBadReactionPointRd = reactionPointService.addBadReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
 
 		return rq.jsReplace(addBadReactionPointRd.getMsg(), replaceUri);
+	}
+
+	@RequestMapping("/usr/reactionPoint/doGoodDelReaction")
+	@ResponseBody
+	public String doGoodDelReaction(String relTypeCode, int relId, String replaceUri) {
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		if (actorCanMakeReactionPointRd.isFail()) {
+			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
+		}
+
+		ResultData deleteGoodReactionPointRd = reactionPointService.deleteGoodReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		return rq.jsReplace(deleteGoodReactionPointRd.getMsg(), replaceUri);
+	}
+	
+	@RequestMapping("/usr/reactionPoint/doBadDelReaction")
+	@ResponseBody
+	public String doBadDelReaction(String relTypeCode, int relId, String replaceUri) {
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		if (actorCanMakeReactionPointRd.isFail()) {
+			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
+		}
+
+		ResultData deleteBadReactionPointRd = reactionPointService.deleteBadReactionPoint(rq.getLoginedId(), relId,
+				relTypeCode);
+
+		return rq.jsReplace(deleteBadReactionPointRd.getMsg(), replaceUri);
 	}
 
 }
