@@ -22,10 +22,10 @@ public class ReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
 		
-		if(actorCanMakeReactionPoint == false) {
-			rq.jsHistoryBack("이미 처리되었습니다.");
+		if(actorCanMakeReactionPointRd.isFail()) {
+			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
 		
 		ResultData addGoodReactionPointRd =reactionPointService.addGoodReactionPoint(rq.getLoginedId(), relId, relTypeCode);
@@ -36,10 +36,10 @@ public class ReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(),relId, relTypeCode);
 		
-		if(actorCanMakeReactionPoint == false) {
-			rq.jsHistoryBack("이미 처리되었습니다.");
+		if(actorCanMakeReactionPointRd.isFail()) {
+			rq.jsHistoryBack(actorCanMakeReactionPointRd.getMsg());
 		}
 		
 		ResultData addBadReactionPointRd =reactionPointService.addBadReactionPoint(rq.getLoginedId(), relId, relTypeCode);

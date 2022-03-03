@@ -22,3 +22,16 @@ html>body {
   font-family: "GmarketSansMedium";
   text-underline-position: under;
 }
+body{
+	min-width: 1080px;
+	height: 100%
+}
+.reply-body.active{
+	display: none;
+}
+.reply-modify-View{
+	display: none;
+}
+.reply-modify-View.active{
+	display: block;
+}

@@ -33,7 +33,7 @@ public interface ReactionPointRepository {
 			INSERT INTO reactionPoint
 			SET regDate = NOW(),
 			updateDate = NOW(),
-			memberId = #{memberId},
+			memberId = #{actorId},
 			relTypeCode = #{relTypeCode},
 			relId = #{relId},
 			`point` = -1

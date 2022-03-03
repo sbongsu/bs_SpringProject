@@ -76,20 +76,45 @@
       </div>
       <%--좋아요, 싫어요 --%>
       <div class="flex items-center justify-center p-2">
-      
-      <c:if test="${actorCanSeeReactionPoint }">
+      <c:if test="${actorCanMakeReaction}">
         <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-info btn-md btn-circle">
           👍
           <br>
           추천
         </a>
-        </c:if>
-        
+       </c:if>   
+       <c:if test="${actorCanCancelBadReaction}">
+        <a onclick="alert(this.title); return false;" title="먼저 비추천을(를) 취소해주세요." href="#" class="btn btn-md btn-circle">
+          👍
+          <br>
+          추천
+        </a>
+       </c:if> 
+       <c:if test="${actorCanCancelGoodReaction}">
+        <a href="/usr/reactionPoint/doGoodDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-info btn-md btn-circle">
+          👍
+          <br>
+          추천
+        </a>
+       </c:if>
         <%--추천수 --%>
         <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
-        
-        <c:if test="${actorCanSeeReactionPoint }">
+        <c:if test="${actorCanMakeReaction}">
         <a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-error btn-md btn-circle">
+          👎
+          <br>
+          비추천
+        </a>
+        </c:if>
+        <c:if test="${actorCanCancelBadReaction}">
+        <a href="/usr/reactionPoint/doBadDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-error btn-md btn-circle">
+          👎
+          <br>
+          비추천
+        </a>
+        </c:if>
+        <c:if test="${actorCanCancelGoodReaction}">
+        <a onclick="alert(this.title); return false;" title="먼저 추천을(를) 취소해주세요." href="#" class="btn btn-md btn-circle">
           👎
           <br>
           비추천
