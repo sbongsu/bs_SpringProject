@@ -86,11 +86,33 @@ public interface ArticleRepository {
 	void articleDelete(int id);
 
 	@Select("""
+			<script>
 			SELECT COUNT(*)
 			FROM article
-			WHERE boardId = #{boardId}
+			WHERE 1
+			<if test="boardId != 0">
+				AND boardId = #{boardId}
+			</if>
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordTypeCode == 'title'">
+						AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordTypeCode == 'body'">
+						AND body LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND (
+							title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR
+							body LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</otherwise>
+				</choose>
+			</if>
+			</script>
 			""")
-	int getArticlesCount(int boardId);
+	int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 
 	@Insert("""
 			INSERT INTO article

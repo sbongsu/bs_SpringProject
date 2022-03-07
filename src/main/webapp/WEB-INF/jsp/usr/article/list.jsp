@@ -50,15 +50,26 @@
       </tbody>
     </table>
   </div>
-  
+  <div class="overflow-x-auto">
+  <form class="float-right" action="">
+    <select class="select select-bordered select-xs w-24">
+      <option disabled selected>검색타입</option>
+      <option>제목</option>
+      <option>내용</option>
+      <option>제목+내용</option>
+    </select>
+    <input type="text" placeholder="Type here" class="input input-bordered input-xs">
+    </form>
+  </div>
+
   <!-- 로그인할때만 글쓰기 버튼 -->
   <c:if test="${rq.isLogined() }">
     <a href="../article/write?boardId=${param.boardId}" class="btn btn-xs mt-2 float-right">글쓰기</a>
   </c:if>
-  
+
   <!-- 페이징처리 -->
-  <div class="btn-group justify-center mt-6">
-  
+  <div class="btn-group justify-center mt-3">
+
     <c:set var="pageMenuLen" value="4" />
     <c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1}" />
     <c:set var="endPage" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount}" />

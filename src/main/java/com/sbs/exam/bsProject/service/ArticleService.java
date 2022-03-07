@@ -54,8 +54,8 @@ public class ArticleService {
 		articleRepository.articleDelete(id);
 	}
 
-	public int getArticlesCount(int boardId) {
-		return articleRepository.getArticlesCount(boardId);
+	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
+		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
 	public ResultData doWrite(int memberId, int boardId, String title, String body) {
