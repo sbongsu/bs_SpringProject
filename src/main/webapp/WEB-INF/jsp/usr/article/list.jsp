@@ -50,15 +50,18 @@
       </tbody>
     </table>
   </div>
+  
+  <!-- 검색창 -->
   <div class="overflow-x-auto">
     <form class="float-right" action="">
       <select class="select select-bordered select-xs w-24">
         <option disabled selected>검색타입</option>
-        <option>제목</option>
-        <option>내용</option>
-        <option>제목+내용</option>
+        <option value="title">제목</option>
+        <option value="body">내용</option>
+        <option value="title,body">제목+내용</option>
       </select>
-      <input type="text" placeholder="Type here" class="input input-bordered input-xs">
+      <input name="searchKeyword" type="text" placeholder="검색어를 입력해주세요" class="input input-bordered input-xs">
+      <button type="submit" class="btn btn-xs">검색</button>
     </form>
   </div>
 
