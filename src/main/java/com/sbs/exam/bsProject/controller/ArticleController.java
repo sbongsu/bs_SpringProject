@@ -72,7 +72,7 @@ public class ArticleController {
 		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 		int ArticlesInAPage = 10;
 		int pagesCount = (int) Math.ceil((double) articlesCount / ArticlesInAPage);
-		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page);
+		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page, searchKeywordTypeCode, searchKeyword);
 
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);

@@ -28,6 +28,23 @@ public interface ArticleRepository {
 				<if test="boardId != 0">
 				WHERE boardId = #{boardId}
 				</if>
+				<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordTypeCode == 'title'">
+						AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordTypeCode == 'body'">
+						AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND (
+							A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR
+							A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						)
+					</otherwise>
+				</choose>
+			</if>
 				ORDER BY
 				id DESC
 				LIMIT #{pageStart}, #{pageLast}
@@ -40,7 +57,8 @@ public interface ArticleRepository {
 			id DESC
 			</script>
 			""")
-	List<Article> getForPrintArticles(int boardId, int pageStart, int pageLast);
+	List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword, int pageStart,
+			int pageLast);
 
 	@Select("""
 			<script>

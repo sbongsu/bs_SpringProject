@@ -18,12 +18,12 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public List<Article> getArticles(int boardId, int articlesInAPage, int page) {
+	public List<Article> getArticles(int boardId, int articlesInAPage, int page, String searchKeywordTypeCode, String searchKeyword) {
 		
 		int pageStart = (page - 1) * articlesInAPage;
 		int pageLast = articlesInAPage;
 		
-		return articleRepository.getForPrintArticles(boardId, pageStart, pageLast);
+		return articleRepository.getForPrintArticles(boardId, searchKeywordTypeCode, searchKeyword, pageStart, pageLast);
 	}
 
 	public Article getForPrintArticle(int actor, int id) {
