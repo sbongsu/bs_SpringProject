@@ -212,6 +212,18 @@
 			id : id,
 		}, function(data) {
 			$div.remove();
+			repliesCount();
+		});
+
+	}
+	
+	function repliesCount() {
+		
+		$.post('../reply/doRepliesCountAjax', {
+			id : params.id,
+		}, function(data) {
+			
+			$('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
 		});
 
 	}
@@ -220,7 +232,7 @@
 <section>
   <div class="replyList overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
     <%--댓글리스트 --%>
-    <p class="mt-2">댓글리스트(${repliesCount})</p>
+    <p class="mt-2">댓글리스트(<span class="repliesConutAjax">${repliesCount}</span>)</p>
     <c:forEach var="reply" items="${replies }">
       <c:set var="memberId" value="${reply.memberId }" />
       <div data-modify-mode="N" data-id="${reply.id}"
