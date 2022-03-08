@@ -47,5 +47,20 @@ public class ReplyController {
 		return rq.jsReplace(writeRd.getMsg(), replaceUri);
 	}
 	
+	@RequestMapping("/usr/reply/doModifyReplyAjax")
+	@ResponseBody
+	public ResultData doWrite(int id, String body) {
+		
+		ResultData replyModifyAvailRd = replyService.replyModifyAvail(rq.getLoginedId(), id, body);
+		
+		if(replyModifyAvailRd.isFail()) {
+			return replyModifyAvailRd;
+		}
+		
+		ResultData replyModifyRd= replyService.replyModify( id, body);
+		
+		return replyModifyRd;
+	}
+	
 	
 }

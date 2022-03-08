@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sbs.exam.bsProject.vo.Reply;
 
@@ -37,5 +38,19 @@ public interface ReplyRepository {
 			AND R.relId = #{relId}
 			""")
 	List<Reply> getForPrintReplies(String relTypeCode, int relId);
+
+	@Select("""
+			SELECT *
+			FROM reply
+			WHERE id = #{id};
+			""")
+	Reply getReplyByID(int id);
+
+	@Update("""
+			UPDATE reply
+			SET body = #{body}
+			WHERE id= #{id}
+			""")
+	void replyModify(int id, String body);
 
 }

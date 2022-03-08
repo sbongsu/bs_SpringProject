@@ -76,49 +76,63 @@
       </div>
       <%--좋아요, 싫어요 --%>
       <div class="flex items-center justify-center p-2">
-      <c:if test="${actorCanMakeReaction}">
-        <a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-info btn-md btn-circle">
-          👍
-          <br>
-          추천
-        </a>
-       </c:if>   
-       <c:if test="${actorCanCancelBadReaction}">
-        <a onclick="alert(this.title); return false;" title="먼저 비추천을(를) 취소해주세요." href="#" class="btn btn-md btn-circle">
-          👍
-          <br>
-          추천
-        </a>
-       </c:if> 
-       <c:if test="${actorCanCancelGoodReaction}">
-        <a href="/usr/reactionPoint/doGoodDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-info btn-md btn-circle">
-          👍
-          <br>
-          추천
-        </a>
-       </c:if>
+        <c:if test="${actorCanMakeReaction}">
+          <a
+            href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-info btn-md btn-circle"
+          >
+            👍
+            <br>
+            추천
+          </a>
+        </c:if>
+        <c:if test="${actorCanCancelBadReaction}">
+          <a onclick="alert(this.title); return false;" title="먼저 비추천을(를) 취소해주세요." href="#"
+            class="btn btn-md btn-circle"
+          >
+            👍
+            <br>
+            추천
+          </a>
+        </c:if>
+        <c:if test="${actorCanCancelGoodReaction}">
+          <a
+            href="/usr/reactionPoint/doGoodDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-info btn-md btn-circle"
+          >
+            👍
+            <br>
+            추천
+          </a>
+        </c:if>
         <%--추천수 --%>
         <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
         <c:if test="${actorCanMakeReaction}">
-        <a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-error btn-md btn-circle">
-          👎
-          <br>
-          비추천
-        </a>
+          <a
+            href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-error btn-md btn-circle"
+          >
+            👎
+            <br>
+            비추천
+          </a>
         </c:if>
         <c:if test="${actorCanCancelBadReaction}">
-        <a href="/usr/reactionPoint/doBadDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" class="btn btn-error btn-md btn-circle">
-          👎
-          <br>
-          비추천
-        </a>
+          <a
+            href="/usr/reactionPoint/doBadDelReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-error btn-md btn-circle"
+          >
+            👎
+            <br>
+            비추천
+          </a>
         </c:if>
         <c:if test="${actorCanCancelGoodReaction}">
-        <a onclick="alert(this.title); return false;" title="먼저 추천을(를) 취소해주세요." href="#" class="btn btn-md btn-circle">
-          👎
-          <br>
-          비추천
-        </a>
+          <a onclick="alert(this.title); return false;" title="먼저 추천을(를) 취소해주세요." href="#" class="btn btn-md btn-circle">
+            👎
+            <br>
+            비추천
+          </a>
         </c:if>
       </div>
     </div>
@@ -137,31 +151,91 @@
 </section>
 
 <script>
-	$(document).ready(function() {
-		$('.reply-modify-but').click(function() {
 
-			$('reply-modify-View').toggleClass('active');
-			$('.reply-body').toggleClass('active');
-		})
+	function ReplyModifyShow(el) {
+		var $div = $(el).closest('[data-id]');
 
-	})
+		var replybody = $div.find(' > .replyBody').html().trim();
+
+		$div.find(' > .ReplyModifyCenBut > textarea').val(replybody);
+
+		$div.attr('data-modify-mode', 'Y');
+		$div.siblings('[data-modify-mode = "Y"]').attr('data-modify-mode', 'N');
+	}
+
+	function ReplyModifyNone(el) {
+		var $div = $(el).closest('[data-id]');
+		$div.attr('data-modify-mode', 'N');
+
+	}
+
+	function Article__modifyReply(form) {
+		form.body.value = form.body.value.trim();
+
+		if (form.body.value.length == 0) {
+			form.body.focus();
+			alert('수정할 댓글을 입력해 주세요.');
+			return;
+		}
+
+		var $div = $(form).closest('[data-id]');
+
+
+		var newBody = form.body.value;
+		var id = parseInt($div.attr('data-id'));
+
+		//임시테스트용
+		//$div.find(' > .replyBody').empty().append(newBody);
+		//$div.find(' > .replyBody').empty().append('수정중..');
+		
+		$.post('../reply/doModifyReplyAjax', {
+			id : id,
+			body : newBody
+		}, function(data) {
+			$div.attr('data-modify-mode', 'N');
+			
+			if (data.resultCode == 'S-1') {
+				var $replyBodyText = $div.find('.replyBody');
+				var $textarea = $div.find('form textarea');
+				
+				$replyBodyText.text($textarea.val());
+			} else {
+				$div.attr('data-modify-mode', 'N');
+				if (data.msg) {
+					alert(data.msg)
+				}
+			}
+		});
+		
+	}
 </script>
 
 <section>
-  <div class="overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
+  <div class="replyList overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
+    <%--댓글리스트 --%>
     <p class="mt-2">댓글리스트(${repliesCount})</p>
     <c:forEach var="reply" items="${replies }">
-      <div class="border border-r-0 border-l-0 border-t-0 border-gray-100 mt-1 p-3">
+      <div data-modify-mode="N" data-id="${reply.id}"
+        class="border border-r-0 border-l-0 border-t-0 border-gray-100 mt-1 p-5"
+      >
         <p>${reply.extra__writerName }
           <span class="text-xs text-gray-400">${reply.regDate }</span>
-        <div class="w-10 h-5 bg-red-300 float-right reply-modify-but">
-          <button>수정</button>
-        </div>
         </p>
-        <p class="reply-body">${reply.body }</p>
-        <form class="reply-modify-View" method="POST" action="../reply/domodify">
-          <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body">${reply.body }</textarea>
+        <div class="ReplyModifyBut replyBody">${reply.body }</div>
+        <%--댓글수정폼 --%>
+        <form class="ReplyModifyCenBut" onsubmit="Article__modifyReply(this); return false;">
+          <input type="hidden" name="id" value="${reply.id}" />
+          <textarea maxlength="300" class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body"></textarea>
+          <button type="button" class="ReplyModifyCenBut float-right ml-2 mr-10 hover:text-blue-500"
+            onclick="ReplyModifyNone(this);"
+          >수정취소</button>
+          <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
         </form>
+        <div class="reply-modify-but w-10 h-5 float-right mb-3">
+          <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
+        </div>
+        <div class="replyModifyView"></div>
+
       </div>
     </c:forEach>
 

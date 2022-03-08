@@ -26,12 +26,9 @@ body{
 	min-width: 1080px;
 	height: 100%
 }
-.reply-body.active{
+div [data-modify-mode="N"] .ReplyModifyCenBut{
 	display: none;
 }
-.reply-modify-View{
+div [data-modify-mode="Y"] .ReplyModifyBut{
 	display: none;
-}
-.reply-modify-View.active{
-	display: block;
 }

@@ -16,21 +16,48 @@ public class ReplyService {
 
 	private ReplyRepository replyRepository;
 	private Rq rq;
-	
+
 	public ReplyService(ReplyRepository replyRepository, Rq rq) {
 		this.replyRepository = replyRepository;
 		this.rq = rq;
 	}
-	
+
 	public ResultData doWrite(int actor, String relTypeCode, int relId, String body) {
-		
+
 		replyRepository.doWrite(actor, relTypeCode, relId, body);
 		int id = replyRepository.getLastInsertId();
-		return ResultData.from("S-1",Ut.f("%d번 댓글이 생성되었습니다.", id));
+		return ResultData.from("S-1", Ut.f("%d번 댓글이 생성되었습니다.", id));
 	}
-	
+
 	public List<Reply> getForPrintReplies(Member actor, String relTypeCode, int relId) {
 		return replyRepository.getForPrintReplies(relTypeCode, relId);
+	}
+
+	public ResultData replyModifyAvail(int actor, int id, String body) {
+
+		if (Ut.empty(id)) {
+			return ResultData.from("F-1", "id을(를) 입력해주세요");
+		}
+
+		if (Ut.empty(body)) {
+			return ResultData.from("F-1", "수정할 댓글을(를) 입력해주세요");
+		}
+
+		Reply reply = replyRepository.getReplyByID(id);
+
+		if (reply.getMemberId() != actor) {
+			return ResultData.from("F-1", "권한이 없습니다");
+		}
+
+		return ResultData.from("S-1", "댓글 수정 가능");
+
+	}
+
+	public ResultData replyModify(int id, String body) {
+
+		replyRepository.replyModify(id, body);
+		
+		return ResultData.from("S-1", "댓글을 수정했습니다.");
 	}
 
 }
