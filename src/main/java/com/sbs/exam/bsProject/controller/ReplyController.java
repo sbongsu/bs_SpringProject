@@ -49,7 +49,7 @@ public class ReplyController {
 	
 	@RequestMapping("/usr/reply/doModifyReplyAjax")
 	@ResponseBody
-	public ResultData doWrite(int id, String body) {
+	public ResultData doModifyReplyAjax(int id, String body) {
 		
 		ResultData replyModifyAvailRd = replyService.replyModifyAvail(rq.getLoginedId(), id, body);
 		
@@ -57,10 +57,24 @@ public class ReplyController {
 			return replyModifyAvailRd;
 		}
 		
-		ResultData replyModifyRd= replyService.replyModify( id, body);
+		ResultData replyModifyRd= replyService.replyModify(id, body);
 		
 		return replyModifyRd;
 	}
 	
+	@RequestMapping("/usr/reply/doDeleteReplyAjax")
+	@ResponseBody
+	public ResultData doDeleteReplyAjax(int id) {
+		
+		ResultData replyDeleteAvailRd = replyService.replyDeleteAvail(rq.getLoginedId(), id);
+		
+		if(replyDeleteAvailRd.isFail()) {
+			return replyDeleteAvailRd;
+		}
+		
+		ResultData replyDeleteRd= replyService.replyDelete(id);
+		
+		return replyDeleteRd;
+	}
 	
 }

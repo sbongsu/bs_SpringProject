@@ -87,10 +87,14 @@ public class ArticleController {
 	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(), id);
+		
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
+		
 		int repliesCount = replies.size();
+		
 		ResultData actorCanSeeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), id,
 				"article");
+		
 		if(actorCanSeeReactionPointRd.getResultCode().equals("F-1") || actorCanSeeReactionPointRd.getResultCode().equals("S-1") ) {
 			model.addAttribute("actorCanMakeReaction", true);
 		}

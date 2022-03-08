@@ -151,7 +151,6 @@
 </section>
 
 <script>
-
 	function ReplyModifyShow(el) {
 		var $div = $(el).closest('[data-id]');
 
@@ -180,24 +179,19 @@
 
 		var $div = $(form).closest('[data-id]');
 
-
 		var newBody = form.body.value;
 		var id = parseInt($div.attr('data-id'));
 
-		//임시테스트용
-		//$div.find(' > .replyBody').empty().append(newBody);
-		//$div.find(' > .replyBody').empty().append('수정중..');
-		
 		$.post('../reply/doModifyReplyAjax', {
 			id : id,
 			body : newBody
 		}, function(data) {
 			$div.attr('data-modify-mode', 'N');
-			
+
 			if (data.resultCode == 'S-1') {
 				var $replyBodyText = $div.find('.replyBody');
 				var $textarea = $div.find('form textarea');
-				
+
 				$replyBodyText.text($textarea.val());
 			} else {
 				$div.attr('data-modify-mode', 'N');
@@ -206,7 +200,20 @@
 				}
 			}
 		});
-		
+
+	}
+	
+	function ReplyDelete(obj) {
+		var $div = $(obj).closest('[data-id]');
+
+		var id = parseInt($div.attr('data-id'));
+
+		$.post('../reply/doDeleteReplyAjax', {
+			id : id,
+		}, function(data) {
+			$div.remove();
+		});
+
 	}
 </script>
 
@@ -215,9 +222,16 @@
     <%--댓글리스트 --%>
     <p class="mt-2">댓글리스트(${repliesCount})</p>
     <c:forEach var="reply" items="${replies }">
+      <c:set var="memberId" value="${reply.memberId }" />
       <div data-modify-mode="N" data-id="${reply.id}"
-        class="border border-r-0 border-l-0 border-t-0 border-gray-100 mt-1 p-5"
+        class="border border-r-0 border-l-0 border-t-0 border-gray-200 mt-1 p-5"
       >
+        <c:if test="${rq.loginedMember.id == memberId}">
+          <div class="reply-modify-but w-10 h-5 float-right mb-3">
+            <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
+            <button class="ReplyModifyBut hover:text-blue-500" onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyDelete(this); } return false;">삭제</button>
+          </div>
+        </c:if>
         <p>${reply.extra__writerName }
           <span class="text-xs text-gray-400">${reply.regDate }</span>
         </p>
@@ -231,9 +245,7 @@
           >수정취소</button>
           <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
         </form>
-        <div class="reply-modify-but w-10 h-5 float-right mb-3">
-          <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
-        </div>
+
         <div class="replyModifyView"></div>
 
       </div>

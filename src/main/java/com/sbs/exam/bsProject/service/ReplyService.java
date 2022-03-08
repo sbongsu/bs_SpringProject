@@ -33,10 +33,13 @@ public class ReplyService {
 		return replyRepository.getForPrintReplies(relTypeCode, relId);
 	}
 
-	public ResultData replyModifyAvail(int actor, int id, String body) {
+	public ResultData replyModifyAvail(int actorId, int id, String body) {
+		if (actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요.");
+		}
 
 		if (Ut.empty(id)) {
-			return ResultData.from("F-1", "id을(를) 입력해주세요");
+			return ResultData.from("F-1", "수정할 댓글 id을(를) 입력해주세요");
 		}
 
 		if (Ut.empty(body)) {
@@ -45,7 +48,7 @@ public class ReplyService {
 
 		Reply reply = replyRepository.getReplyByID(id);
 
-		if (reply.getMemberId() != actor) {
+		if (reply.getMemberId() != actorId) {
 			return ResultData.from("F-1", "권한이 없습니다");
 		}
 
@@ -58,6 +61,29 @@ public class ReplyService {
 		replyRepository.replyModify(id, body);
 		
 		return ResultData.from("S-1", "댓글을 수정했습니다.");
+	}
+
+	public ResultData replyDeleteAvail(int actorId, int id) {
+		if (actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요.");
+		}
+		
+		if (Ut.empty(id)) {
+			return ResultData.from("F-1", "삭제할 댓글 id을(를) 입력해주세요");
+		}
+		
+		Reply reply = replyRepository.getReplyByID(id);
+
+		if (reply.getMemberId() != actorId) {
+			return ResultData.from("F-1", "권한이 없습니다");
+		}
+		
+		return ResultData.from("S-1", "댓글 삭제 가능");
+	}
+
+	public ResultData replyDelete(int id) {
+		replyRepository.replyDelete(id);
+		return ResultData.from("S-1", "댓글을 삭제했습니다.");
 	}
 
 }
