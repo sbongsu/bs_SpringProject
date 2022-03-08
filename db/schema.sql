@@ -187,6 +187,9 @@ relId = 2,
 ALTER TABLE article
 ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
+# 게시물 테이블 replyConut(댓글수) 칼럼을 추가
+ALTER TABLE article
+ADD COLUMN replyConut INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 # 리액션포인트 테이블
 CREATE TABLE reactionPoint (
@@ -245,3 +248,5 @@ relTypeCode = 'article',
 relId = 107,
 `point` = 1;
 
+
+SELECT * FROM article;

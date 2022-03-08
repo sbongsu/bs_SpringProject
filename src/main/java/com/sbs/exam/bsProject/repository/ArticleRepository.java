@@ -161,4 +161,14 @@ public interface ArticleRepository {
 			WHERE id = #{id}
 			""")
 	int getArticleHitCount(int id);
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET replyConut = #{repliesCount}
+			WHERE id = #{id}
+			</script>
+			""")
+	void repliesConut(int id, int repliesCount);
+
 }

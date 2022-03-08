@@ -16,6 +16,7 @@ public class Article {
 	private String title;
 	private String body;
 	private int hitCount;
+	private int replyConut;
 	
 	
 	private int extra__sumReactionPoint;

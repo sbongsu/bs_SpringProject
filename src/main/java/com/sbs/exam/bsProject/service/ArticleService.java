@@ -79,4 +79,9 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
+	public void repliesConut(int id, int repliesCount) {
+		articleRepository.repliesConut(id, repliesCount);
+		
+	}
+
 }

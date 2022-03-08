@@ -92,6 +92,8 @@ public class ArticleController {
 		
 		int repliesCount = replies.size();
 		
+		articleService.repliesConut(id, repliesCount);
+		
 		ResultData actorCanSeeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), id,
 				"article");
 		

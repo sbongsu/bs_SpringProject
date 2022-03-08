@@ -39,7 +39,7 @@
           <tr>
             <th>${article.id }</th>
             <td>
-              <a href="../article/detail?id=${article.id }">${article.title }</a>
+              <a href="../article/detail?id=${article.id }">${article.title } (${article.replyConut })</a>
             </td>
             <td>${article.extra__writerName }</td>
             <td>${article.regDate.substring(2, 16) }</td>

@@ -29,6 +29,7 @@
 		ArticleDetail__increaseHitCount();
 
 	})
+
 </script>
 
 <script>

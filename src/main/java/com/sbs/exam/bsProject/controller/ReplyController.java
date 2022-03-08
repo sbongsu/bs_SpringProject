@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sbs.exam.bsProject.service.ArticleService;
 import com.sbs.exam.bsProject.service.ReplyService;
 import com.sbs.exam.bsProject.util.Ut;
 import com.sbs.exam.bsProject.vo.Reply;
@@ -17,10 +18,12 @@ public class ReplyController {
 
 	private ReplyService replyService;
 	private Rq rq;
+	private ArticleService articleService;
 	
-	public ReplyController(ReplyService replyService, Rq rq) {
+	public ReplyController(ReplyService replyService, Rq rq, ArticleService articleService) {
 		this.replyService = replyService;
 		this.rq = rq;
+		this.articleService =articleService ;
 	}
 	
 	@RequestMapping("/usr/reply/dowrite")
@@ -84,8 +87,8 @@ public class ReplyController {
 	@ResponseBody
 	public int doRepliesCountAjax(int id) {
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
-		
 		int repliesCount = replies.size();
+		
 		
 		return repliesCount;
 	}
