@@ -28,8 +28,10 @@
   <header>
     <div class="navbar mb-2 shadow-lg bg-accent-content text-base-content rounded-box">
       <div class="px-2 mx-2 navbar-start">
+      <a class="flex items-center" href="/">
         <img class="w-14" src="${pageContext.request.contextPath}/resources/img/logo.png" />
         <span class="text-lg font-bold main_font"> 댕냥댕냥 </span>
+        </a>
       </div>
       <div class="hidden px-2 mx-2 navbar-center lg:flex">
         <div class="flex items-stretch">
