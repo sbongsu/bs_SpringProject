@@ -14,7 +14,7 @@
 <input type="hidden" name="boardId" value="${param.boardId}" />
 <!-- 게시물 리스트 -->
 <div class="w-11/12 mt-2">
-  <div class="overflow-x-auto">
+  <div class="overflow-x-auto bg-red-50">
     <table class="table w-full text-xs">
       <colgroup>
         <col width="50" />

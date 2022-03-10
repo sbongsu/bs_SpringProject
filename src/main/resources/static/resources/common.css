@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 .main_font{
 	font-family: "KOTRAHOPE";
 }
@@ -22,13 +29,20 @@ html>body {
   font-family: "GmarketSansMedium";
   text-underline-position: under;
 }
+
 body{
 	min-width: 1080px;
 	height: 100%
 }
+
 div [data-modify-mode="N"] .ReplyModifyCenBut{
 	display: none;
 }
+
 div [data-modify-mode="Y"] .ReplyModifyBut{
 	display: none;
+}
+
+.map-font{
+font-family: 'Pretendard-Regular';
 }
