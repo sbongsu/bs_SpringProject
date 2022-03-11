@@ -18,6 +18,9 @@
 <!-- 카카오맵 API -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=301f7e0d3fa272f914677d5cc34b6849&libraries=services"></script>
 
+<!-- 카카오로그인 API -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <!-- 폰트어썸 -->
 <script src="https://kit.fontawesome.com/83fdd9cf00.js" crossorigin="anonymous"></script>
 <!-- 사이트 공통 CSS -->
