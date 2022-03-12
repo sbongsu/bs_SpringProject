@@ -3,26 +3,6 @@
 <c:set var="pageName" value="로그인" />
 <%@ include file="../common/head.jspf"%>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-	function kakaoLogin() {
-		Kakao.Auth.login({
-			success : function(response) {
-				Kakao.API.request({
-					url : '/v2/user/me',
-					success : function(response) {
-						kakaoLoginPro(response)
-					},
-					fail : function(error) {
-						console.log(error)
-					},
-				})
-			},
-			fail : function(error) {
-				console.log(error)
-			},
-		})
-	}
-</script>
 
 <form method="POST" action="../member/doLogin">
   <div class="w-96 h-60 p-2 mx-auto mt-28 rounded-t-2xl rounded-b-2xl">

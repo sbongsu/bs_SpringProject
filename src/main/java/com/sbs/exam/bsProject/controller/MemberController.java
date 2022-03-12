@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbs.exam.bsProject.service.MemberService;
 import com.sbs.exam.bsProject.util.Ut;
+import com.sbs.exam.bsProject.vo.KakaoProfile;
 import com.sbs.exam.bsProject.vo.Member;
+import com.sbs.exam.bsProject.vo.OAuthToken;
 import com.sbs.exam.bsProject.vo.ResultData;
 import com.sbs.exam.bsProject.vo.Rq;
 
@@ -212,6 +217,7 @@ public class MemberController {
 	@ResponseBody
 	public String kakaoCallBack(String code) {
 		
+		//받아온 코드로 토큰 받아오기
 		RestTemplate rt = new RestTemplate();
 
 		//HttpHeaders 오브젝터 생성
@@ -231,8 +237,51 @@ public class MemberController {
 		//Http 요청하기 Post방식으로 and response 변수의 응답을 String으로 받음
 		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST, kakaoTokenRequest, String.class);
 		
+		//OAuthToken에 받아온 객체 담기.
+		//JSON -> Java에서 사용하기위해!!!
+		ObjectMapper objectmapper = new ObjectMapper();
+		OAuthToken oauthtoken = null;
+		try {
+			oauthtoken = objectmapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("카카오 엑세스 토큰 :" + oauthtoken.getAccess_token());
+		
+		
+		//토큰으로 사용자 정보 받아와서 클래스에 넣기!
+		RestTemplate rt2 = new RestTemplate();
+
+		//HttpHeaders 오브젝터 생성
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.add("Authorization", "Bearer " + oauthtoken.getAccess_token());
+		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		
+		//HttpHeaders를 오브젝트에 담기
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
+		
+		//Http 요청하기 Post방식으로 and response 변수의 응답을 String으로 받음
+		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST, kakaoProfileRequest2, String.class);
+		
+		ObjectMapper objectmapper2 = new ObjectMapper();
+		KakaoProfile kakaoProfile = null;
+		try {
+			kakaoProfile = objectmapper2.readValue(response2.getBody(), KakaoProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("카카호 아이디 번호 : " +kakaoProfile.getId());
+		System.out.println("카카호 아이디 번호 : " +kakaoProfile.getProperties().getNickname());
+		
+		
 		//return "카카오 인증 code : " + code ;
 		
-		return "카카오 토큰 요청 완료 : 토큰요청에 대한 응답 : " + response;
+		//return "카카오 토큰 요청 완료 : 토큰요청에 대한 응답 : " + response2.getBody();
+		return response2.getBody();
 	}
 }
