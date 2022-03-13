@@ -1,5 +1,7 @@
 package com.sbs.exam.bsProject.controller;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -275,9 +277,15 @@ public class MemberController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("카카호 아이디 번호 : " +kakaoProfile.getId());
-		System.out.println("카카호 아이디 번호 : " +kakaoProfile.getProperties().getNickname());
 		
+		//Member 오브젝트에 : loginId, loginPw, userName, nickName, email, phoneNum
+		System.out.println("카카오 아이디 번호 : " +kakaoProfile.getId());
+		System.out.println("카카오 닉네임 : " +kakaoProfile.getProperties().getNickname());
+		
+		UUID garbagePw = UUID.randomUUID();
+		System.out.println("블로그 아이디 : " +kakaoProfile.getProperties().getNickname()+ "_" + kakaoProfile.getId());
+		System.out.println("블로그 닉네임 : " +kakaoProfile.getProperties().getNickname());
+		System.out.println("블로그 비밀번호 : " +garbagePw);
 		
 		//return "카카오 인증 code : " + code ;
 		
