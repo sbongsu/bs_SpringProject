@@ -282,14 +282,50 @@ public class MemberController {
 		System.out.println("카카오 아이디 번호 : " +kakaoProfile.getId());
 		System.out.println("카카오 닉네임 : " +kakaoProfile.getProperties().getNickname());
 		
-		UUID garbagePw = UUID.randomUUID();
+		//구현을 위한 임시 값들
+		String garbagePw = "abc1234";
+		String garbageEmail = "abc1234";
+		String garbagePhoneNum = "abc1234";
+		
+		//카카오에서 받아온 데이터 확인, null값은 임시값으로 넣고 확인 !
 		System.out.println("블로그 아이디 : " +kakaoProfile.getProperties().getNickname()+ "_" + kakaoProfile.getId());
-		System.out.println("블로그 닉네임 : " +kakaoProfile.getProperties().getNickname());
 		System.out.println("블로그 비밀번호 : " +garbagePw);
+		System.out.println("블로그 이름 : " +kakaoProfile.getProperties().getNickname());
+		System.out.println("블로그 닉네임 : " +kakaoProfile.getProperties().getNickname());
+		System.out.println("블로그 이메일 : " +garbageEmail);
+		System.out.println("블로그 휴대폰번호 : " +garbagePhoneNum);
+		
+		Member member = new Member();
+		
+		member.setLoginId(kakaoProfile.getProperties().getNickname()+ "_" + kakaoProfile.getId());
+		member.setLoginPw(garbagePw);
+		member.setUserName(kakaoProfile.getProperties().getNickname());
+		member.setNickName(kakaoProfile.getProperties().getNickname());
+		member.setEmail(garbageEmail);
+		member.setPhoneNum(garbagePhoneNum);
+		System.out.println("값 확인 : " + member.getLoginId());
+		
+		//기존 회원인지 확인하기.
+		Member originMemberCheck = memberService.getMemberId(member.getLoginId());
+		System.out.println("dddddd : " + originMemberCheck);
+		
+		Member loginMemberId = null;
+		
+		//새로운 회원일 경우 회원가입.
+		if(originMemberCheck.getLoginId() == null ) {
+			memberService.kakaoJoin(kakaoProfile.getProperties().getNickname()+ "_" + kakaoProfile.getId(), kakaoProfile.getProperties().getNickname(), kakaoProfile.getProperties().getNickname(), garbagePw.toString() ,garbageEmail.toString(), garbagePhoneNum.toString());
+			loginMemberId = memberService.getMemberId(member.getLoginId());
+			rq.login(loginMemberId);
+		}
+
+		//새로운 회원이  아닐경우 로그인.
+		if(originMemberCheck.getLoginId() != null ) {
+			rq.login(originMemberCheck);
+		}
 		
 		//return "카카오 인증 code : " + code ;
 		
 		//return "카카오 토큰 요청 완료 : 토큰요청에 대한 응답 : " + response2.getBody();
-		return response2.getBody();
+		return rq.jsReplace("로그인 성공", "/");
 	}
 }

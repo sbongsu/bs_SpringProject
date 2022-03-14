@@ -19,8 +19,13 @@ public class MemberService {
 	}
 
 	public Member getMemberId(String loginId) {
+		Member member = memberRepository.getMemberId(loginId);
+		System.out.println("아이디있냐 ? " +  member);
+		if(member == null) {
+			return new Member();
+		}
 		
-		return memberRepository.getMemberId(loginId);
+		return member;
 	}
 	
 	public Member getMemberById(int id) {
@@ -76,6 +81,11 @@ public class MemberService {
 		}
 
 		return ResultData.from("S-1", "정상적인 코드입니다.");
+	}
+
+	public ResultData kakaoJoin(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum) {
+		memberRepository.join(loginId, userName, nickName, loginPw, email, phoneNum);
+		return ResultData.from("S-1", "회원가입완료!");
 	}
 
 }
