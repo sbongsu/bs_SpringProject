@@ -3,6 +3,7 @@ package com.sbs.exam.bsProject.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sbs.exam.bsProject.repository.ArticleRepository;
 import com.sbs.exam.bsProject.util.Ut;
@@ -58,7 +59,10 @@ public class ArticleService {
 		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
-	public ResultData doWrite(int memberId, int boardId, String title, String body) {
+	public ResultData doWrite(int memberId, int boardId, String title, String body, MultipartFile files) {
+		String projectPath = System.getProperty("user.dir");
+		System.out.println("주소 : " + projectPath);
+		
 		articleRepository.doWrite(memberId,boardId,title,body);
 		int id = articleRepository.getLastInsertId();
 		return ResultData.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id));

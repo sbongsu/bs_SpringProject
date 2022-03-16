@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageName" value="게시물상세보기" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../../common/toastUiEditorLib.jspf"%>
+
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
@@ -29,7 +31,6 @@
 		ArticleDetail__increaseHitCount();
 
 	})
-
 </script>
 
 <script>
@@ -72,7 +73,11 @@
         </span>
 
         <%--게시물 내용 --%>
-        <div class="mt-6">${article.body }</div>
+        <div class="toast-ui-viewer mt-6">
+          <script type="text/x-template">
+			${article.body}
+       	  </script>
+        </div>
 
       </div>
       <%--좋아요, 싫어요 --%>
@@ -203,7 +208,7 @@
 		});
 
 	}
-	
+
 	function ReplyDelete(obj) {
 		var $div = $(obj).closest('[data-id]');
 
@@ -217,13 +222,13 @@
 		});
 
 	}
-	
+
 	function repliesCount() {
-		
+
 		$.post('../reply/doRepliesCountAjax', {
 			id : params.id,
 		}, function(data) {
-			
+
 			$('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
 		});
 
@@ -233,7 +238,11 @@
 <section>
   <div class="replyList overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
     <%--댓글리스트 --%>
-    <p class="mt-2">댓글리스트(<span class="repliesConutAjax">${repliesCount}</span>)</p>
+    <p class="mt-2">
+      댓글리스트(
+      <span class="repliesConutAjax">${repliesCount}</span>
+      )
+    </p>
     <c:forEach var="reply" items="${replies }">
       <c:set var="memberId" value="${reply.memberId }" />
       <div data-modify-mode="N" data-id="${reply.id}"
@@ -242,7 +251,9 @@
         <c:if test="${rq.loginedMember.id == memberId}">
           <div class="reply-modify-but w-10 h-5 float-right mb-3">
             <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
-            <button class="ReplyModifyBut hover:text-blue-500" onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyDelete(this); } return false;">삭제</button>
+            <button class="ReplyModifyBut hover:text-blue-500"
+              onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyDelete(this); } return false;"
+            >삭제</button>
           </div>
         </c:if>
         <p>${reply.extra__writerName }

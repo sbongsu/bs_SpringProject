@@ -46,3 +46,55 @@ div [data-modify-mode="Y"] .ReplyModifyBut{
 .map-font{
 font-family: 'Pretendard-Regular';
 }
+
+/* 토스트 UI, 유튜브 플러그인 에서 필요한 CSS 시작 */
+.absolute {
+  position:absolute;
+}
+
+.relative {
+  position:relative;
+}
+
+.top-0 {
+  top:0;
+}
+
+.left-0 {
+  left:0;
+}
+
+.w-full {
+  width:100%;
+}
+
+.ratio-16\/9::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.ratio-16\/9::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.ratio-9\/16::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 9 * 16);
+}
+
+.ratio-1\/1::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 1 * 1);
+}
+
+.ratio-1\/2::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 1 * 2);
+}
+/* 토스트 UI, 유튜브 플러그인 에서 필요한 CSS 끝 */

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sbs.exam.bsProject.service.ArticleService;
 import com.sbs.exam.bsProject.service.BoardService;
@@ -45,7 +46,7 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/dowrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body) {
+	public String doWrite(int boardId, String title, String body, MultipartFile files) {
 
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("제목을 입력해주세요");
@@ -55,7 +56,7 @@ public class ArticleController {
 			return rq.jsHistoryBack("내용을입력해주세요");
 		}
 
-		ResultData writeRd = articleService.doWrite(rq.getLoginedId(), boardId, title, body);
+		ResultData writeRd = articleService.doWrite(rq.getLoginedId(), boardId, title, body, files);
 
 		return rq.jsReplace(writeRd.getMsg(), Ut.f("../article/list?boardId=%d&page=1", boardId));
 	}
