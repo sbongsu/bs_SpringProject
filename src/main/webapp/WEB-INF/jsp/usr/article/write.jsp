@@ -68,7 +68,6 @@
       <div class="float-right mt-1">
         <button type="submit" class="btn btn-ghost">완료</button>
         <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-
       </div>
     </form>
   </div>

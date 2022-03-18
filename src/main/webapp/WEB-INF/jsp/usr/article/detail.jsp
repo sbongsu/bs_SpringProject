@@ -9,6 +9,7 @@
 	params.id = parseInt('${param.id}');
 </script>
 
+<%--게시물관련 스크립트--%>
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__viewDone';
@@ -32,7 +33,7 @@
 
 	})
 </script>
-
+<%--댓글 스크립트 시작--%>
 <script>
 	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form) {
@@ -50,13 +51,92 @@
 
 	}
 </script>
+
+<script>
+  function ReplyModifyShow(el) {
+    var $div = $(el).closest('[data-id]');
+
+    var replybody = $div.find(' > .replyBody').html().trim();
+
+    $div.find(' > .ReplyModifyCenBut > textarea').val(replybody);
+
+    $div.attr('data-modify-mode', 'Y');
+    $div.siblings('[data-modify-mode = "Y"]').attr('data-modify-mode', 'N');
+  }
+
+  function ReplyModifyNone(el) {
+    var $div = $(el).closest('[data-id]');
+    $div.attr('data-modify-mode', 'N');
+
+  }
+
+  function Article__modifyReply(form) {
+    form.body.value = form.body.value.trim();
+
+    if (form.body.value.length == 0) {
+      form.body.focus();
+      alert('수정할 댓글을 입력해 주세요.');
+      return;
+    }
+
+    var $div = $(form).closest('[data-id]');
+
+    var newBody = form.body.value;
+    var id = parseInt($div.attr('data-id'));
+
+    $.post('../reply/doModifyReplyAjax', {
+      id : id,
+      body : newBody
+    }, function(data) {
+      $div.attr('data-modify-mode', 'N');
+
+      if (data.resultCode == 'S-1') {
+        var $replyBodyText = $div.find('.replyBody');
+        var $textarea = $div.find('form textarea');
+
+        $replyBodyText.text($textarea.val());
+      } else {
+        $div.attr('data-modify-mode', 'N');
+        if (data.msg) {
+          alert(data.msg)
+        }
+      }
+    });
+
+  }
+
+  function ReplyDelete(obj) {
+    var $div = $(obj).closest('[data-id]');
+
+    var id = parseInt($div.attr('data-id'));
+
+    $.post('../reply/doDeleteReplyAjax', {
+      id : id,
+    }, function(data) {
+      $div.remove();
+      repliesCount();
+    });
+
+  }
+
+  function repliesCount() {
+
+    $.post('../reply/doRepliesCountAjax', {
+      id : params.id,
+    }, function(data) {
+
+      $('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
+    });
+
+  }
+</script>
+<%--댓글 스크립트 끝--%>
+
 <%--게시물 상세보기--%>
 <section>
   <div class="overflow-x-auto mt-12 w-3/4">
     <div class=" border-2 border-gray-200 rounded-lg p-9 pb-0 pt-0">
-
-      <div class="mt-12 h-96">
-
+      <div class="mt-12">
         <%--게시물 제목 --%>
         <p class="text-2xl text-blue-500">${article.title}</p>
 
@@ -78,8 +158,8 @@
 			${article.body}
        	  </script>
         </div>
-
       </div>
+      
       <%--좋아요, 싫어요 --%>
       <div class="flex items-center justify-center p-2">
         <c:if test="${actorCanMakeReaction}">
@@ -111,6 +191,7 @@
             추천
           </a>
         </c:if>
+        
         <%--추천수 --%>
         <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
         <c:if test="${actorCanMakeReaction}">
@@ -142,6 +223,7 @@
         </c:if>
       </div>
     </div>
+    
     <%--수정, 삭제버튼--%>
     <c:if test="${article.extra__actorCanSee }">
       <div class="float-right mt-1">
@@ -153,91 +235,9 @@
         >삭제</a>
       </div>
     </c:if>
-  </div>
-</section>
-
-<script>
-	function ReplyModifyShow(el) {
-		var $div = $(el).closest('[data-id]');
-
-		var replybody = $div.find(' > .replyBody').html().trim();
-
-		$div.find(' > .ReplyModifyCenBut > textarea').val(replybody);
-
-		$div.attr('data-modify-mode', 'Y');
-		$div.siblings('[data-modify-mode = "Y"]').attr('data-modify-mode', 'N');
-	}
-
-	function ReplyModifyNone(el) {
-		var $div = $(el).closest('[data-id]');
-		$div.attr('data-modify-mode', 'N');
-
-	}
-
-	function Article__modifyReply(form) {
-		form.body.value = form.body.value.trim();
-
-		if (form.body.value.length == 0) {
-			form.body.focus();
-			alert('수정할 댓글을 입력해 주세요.');
-			return;
-		}
-
-		var $div = $(form).closest('[data-id]');
-
-		var newBody = form.body.value;
-		var id = parseInt($div.attr('data-id'));
-
-		$.post('../reply/doModifyReplyAjax', {
-			id : id,
-			body : newBody
-		}, function(data) {
-			$div.attr('data-modify-mode', 'N');
-
-			if (data.resultCode == 'S-1') {
-				var $replyBodyText = $div.find('.replyBody');
-				var $textarea = $div.find('form textarea');
-
-				$replyBodyText.text($textarea.val());
-			} else {
-				$div.attr('data-modify-mode', 'N');
-				if (data.msg) {
-					alert(data.msg)
-				}
-			}
-		});
-
-	}
-
-	function ReplyDelete(obj) {
-		var $div = $(obj).closest('[data-id]');
-
-		var id = parseInt($div.attr('data-id'));
-
-		$.post('../reply/doDeleteReplyAjax', {
-			id : id,
-		}, function(data) {
-			$div.remove();
-			repliesCount();
-		});
-
-	}
-
-	function repliesCount() {
-
-		$.post('../reply/doRepliesCountAjax', {
-			id : params.id,
-		}, function(data) {
-
-			$('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
-		});
-
-	}
-</script>
-
-<section>
-  <div class="replyList overflow-x-auto w-3/4 mt-2 ml-2 p-3 bg-gray-50 rounded-lg">
+    
     <%--댓글리스트 --%>
+     <div class="replyList overflow-x-auto w-full mt-2 p-3 bg-gray-50 rounded-lg">
     <p class="mt-2">
       댓글리스트(
       <span class="repliesConutAjax">${repliesCount}</span>
@@ -260,6 +260,7 @@
           <span class="text-xs text-gray-400">${reply.regDate }</span>
         </p>
         <div class="ReplyModifyBut replyBody">${reply.body }</div>
+        
         <%--댓글수정폼 --%>
         <form class="ReplyModifyCenBut" onsubmit="Article__modifyReply(this); return false;">
           <input type="hidden" name="id" value="${reply.id}" />
@@ -269,14 +270,13 @@
           >수정취소</button>
           <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
         </form>
-
         <div class="replyModifyView"></div>
-
       </div>
     </c:forEach>
 
     <%--댓글작성 --%>
     <p class="mt-2">댓글작성</p>
+    
     <%--댓글 로그인 후 작성 --%>
     <c:if test="${!rq.isLogined() }">
       <p>
@@ -294,10 +294,9 @@
             <button class="btn btn-active float-right mr-14">댓글등록</button>
           </div>
         </div>
-
-
       </form>
     </c:if>
+  </div>
   </div>
 </section>
 
