@@ -248,5 +248,5 @@ relTypeCode = 'article',
 relId = 107,
 `point` = 1;
 
-
-select * from article;
+## body에 사진이 base64 진법으로 들어가기 때문에 LONGTEXT로 변경
+ALTER TABLE article MODIFY `body` LONGTEXT NOT NULL;
