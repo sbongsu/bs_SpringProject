@@ -36,6 +36,17 @@ nickName = '길동',
 email = 'asdfe@nate.com',
 phoneNum = '01022223333';
 
+#관리자 계정 추가
+INSERT INTO `member`
+SET loginId = 'admin',
+loginPw = 'admin',
+regDate = NOW(),
+updateDate = NOW(),
+userName = '관리자',
+nickName = '관리자',
+email = '관리자',
+phoneNum = '관리자';
+
 #게시물 테이블 생성
 CREATE TABLE article(
 id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -250,3 +261,5 @@ relId = 107,
 
 ## body에 사진이 base64 진법으로 들어가기 때문에 LONGTEXT로 변경
 ALTER TABLE article MODIFY `body` LONGTEXT NOT NULL;
+
+select * from reactionPoint;

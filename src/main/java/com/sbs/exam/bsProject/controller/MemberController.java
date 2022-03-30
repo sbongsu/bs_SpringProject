@@ -102,9 +102,9 @@ public class MemberController {
 			return rq.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 
-		Member member = memberService.getMemberId(loginId);
+		Member member = memberService.getMemberLoginId(loginId);
 
-		if (member == null) {
+		if (member.getLoginId() == null) {
 			return rq.jsHistoryBack("등록되지 않은 아이디입니다.");
 		}
 
@@ -114,7 +114,7 @@ public class MemberController {
 
 		rq.login(member);
 
-		return rq.jsReplace("로그인 성공", "/");
+		return rq.jsReplace(member.getNickName() + "님 환영합니다", "/");
 	}
 
 	@RequestMapping("/usr/member/doLogout")
@@ -253,7 +253,6 @@ public class MemberController {
 		
 		System.out.println("카카오 엑세스 토큰 :" + oauthtoken.getAccess_token());
 		
-		
 		//토큰으로 사용자 정보 받아와서 클래스에 넣기!
 		RestTemplate rt2 = new RestTemplate();
 
@@ -306,7 +305,7 @@ public class MemberController {
 		System.out.println("값 확인 : " + member.getLoginId());
 		
 		//기존 회원인지 확인하기.
-		Member originMemberCheck = memberService.getMemberId(member.getLoginId());
+		Member originMemberCheck = memberService.getMemberLoginId(member.getLoginId());
 		System.out.println("dddddd : " + originMemberCheck);
 		
 		Member loginMemberId = null;
@@ -314,13 +313,15 @@ public class MemberController {
 		//새로운 회원일 경우 회원가입.
 		if(originMemberCheck.getLoginId() == null ) {
 			memberService.kakaoJoin(kakaoProfile.getProperties().getNickname()+ "_" + kakaoProfile.getId(), kakaoProfile.getProperties().getNickname(), kakaoProfile.getProperties().getNickname(), garbagePw.toString() ,garbageEmail.toString(), garbagePhoneNum.toString());
-			loginMemberId = memberService.getMemberId(member.getLoginId());
+			loginMemberId = memberService.getMemberLoginId(member.getLoginId());
 			rq.login(loginMemberId);
+			return rq.jsReplace(member.getNickName() + "님 환영합니다", "/");
 		}
 
 		//새로운 회원이  아닐경우 로그인.
 		if(originMemberCheck.getLoginId() != null ) {
 			rq.login(originMemberCheck);
+			return rq.jsReplace(member.getNickName() + "님 환영합니다", "/");
 		}
 		
 		//return "카카오 인증 code : " + code ;

@@ -61,13 +61,13 @@
 			 ${article.body}
 			</script>
           </div>
-        </div>
-      </div>
+          
       <%--수정, 삭제버튼--%>
-      <div class="float-right mt-1">
+      <div class="flex justify-end mt-1">
         <button type="submit" class="btn btn-ghost">수정</button>
         <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-
+      </div>
+        </div>
       </div>
     </form>
   </div>

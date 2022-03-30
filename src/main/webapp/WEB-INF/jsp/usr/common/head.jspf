@@ -52,7 +52,7 @@
           <a href="/usr/member/showMyPage" class="link link-hover mr-4">${rq.loginedMember.nickName }'s profile</a>
         </c:if>
         <c:if test="${rq.isLogined() }">
-          <a href="/usr/member/doLogout" class="link link-hover">LOGOUT</a>
+          <a href="https://kauth.kakao.com/oauth/logout?client_id=8e5884bd3c5a6e6fba97ef8aee1a0019&logout_redirect_uri=http://localhost:8084/usr/member/doLogout" class="link link-hover">LOGOUT</a>
         </c:if>
         <c:if test="${!rq.isLogined() }">
           <a href="/usr/member/showJoin" class="link link-hover ml-3 mr-3">JOIN</a>

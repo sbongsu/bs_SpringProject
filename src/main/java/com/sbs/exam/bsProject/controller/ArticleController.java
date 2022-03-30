@@ -46,7 +46,7 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/dowrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body, MultipartFile files) {
+	public String doWrite(int boardId, String title, String body) {
 
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("제목을 입력해주세요");
@@ -56,21 +56,27 @@ public class ArticleController {
 			return rq.jsHistoryBack("내용을입력해주세요");
 		}
 
-		ResultData writeRd = articleService.doWrite(rq.getLoginedId(), boardId, title, body, files);
+		ResultData writeRd = articleService.doWrite(rq.getLoginedId(), boardId, title, body);
 
 		return rq.jsReplace(writeRd.getMsg(), Ut.f("../article/list?boardId=%d&page=1", boardId));
 	}
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode, @RequestParam(defaultValue = "") String searchKeyword) {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
+		
+		// 해당 게시판 불러오기
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
 			return rq.jsHistoryBack("존재하지 않는 게시판입니다.");
 		}
 
+		// 해당 게시판 게시물 수 불러오기
 		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
+		// 해당 게시판 페이징처리
+		
 		int ArticlesInAPage = 10;
 		int pagesCount = (int) Math.ceil((double) articlesCount / ArticlesInAPage);
 		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page, searchKeywordTypeCode, searchKeyword);
@@ -148,7 +154,7 @@ public class ArticleController {
 		}
 
 		if (!article.isExtra__actorCanSee()) {
-			return "권한이 없습니다.";
+			return rq.historyBackJsOnView("권한이 없습니다.");
 		}
 
 		model.addAttribute("article", article);

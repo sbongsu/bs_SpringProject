@@ -18,9 +18,9 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public Member getMemberId(String loginId) {
-		Member member = memberRepository.getMemberId(loginId);
-		System.out.println("아이디있냐 ? " +  member);
+	public Member getMemberLoginId(String loginId) {
+		Member member = memberRepository.getMemberLoginId(loginId);
+		
 		if(member == null) {
 			return new Member();
 		}
@@ -41,19 +41,19 @@ public class MemberService {
 	}
 
 	public ResultData join(String loginId, String userName, String nickName, String loginPw, String email, String phoneNum) {
-       // 중복 아이디 확인하기
-		Member oldUserId = memberRepository.getMemberId(loginId);
+       // loginId로 중복 아이디 확인하기
+		Member oldUserId = memberRepository.getMemberLoginId(loginId);
 		if(oldUserId != null) {
 			return ResultData.from("F-1", "이미 사용중인 아이디입니다.");
 		}
 		
-		// 중복 닉네임 확인하기
+		// nickName로 중복 닉네임 확인하기
 		oldUserId = memberRepository.getMemberByNickName(nickName);
 		if(oldUserId != null) {
 			return ResultData.from("F-1", "이미 사용중인 닉네임입니다.");
 		}
 		
-		// 중복 회원 확인하기(이름+이메일)
+		// userName, email 중복 회원 확인하기(이름+이메일)
 		oldUserId = memberRepository.getMemberByNameAndEmail(userName,email);
 		if(oldUserId != null) {
 			return ResultData.from("F-1", "이미 사용중인 이름과 이메일입니다.");

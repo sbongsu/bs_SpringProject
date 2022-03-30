@@ -46,6 +46,7 @@
           <span class="text-2xl">자유게시판</span>
         </c:if>
         <span class="text-2xl"> 작성</span>
+        
         <%--게시물 제목 --%>
         <div class="form-control">
           <label class="label">
@@ -62,12 +63,13 @@
           <div class="toast-ui-editor">
             <script type="text/x-template"></script>
           </div>
+          
+         <%--수정, 삭제버튼--%>
+          <div class="flex mt-1 justify-end">
+            <button type="submit" class="btn btn-ghost">완료</button>
+            <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+          </div>
         </div>
-      </div>
-      <%--수정, 삭제버튼--%>
-      <div class="float-right mt-1">
-        <button type="submit" class="btn btn-ghost">완료</button>
-        <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
       </div>
     </form>
   </div>

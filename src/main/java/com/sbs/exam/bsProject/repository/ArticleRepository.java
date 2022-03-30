@@ -57,8 +57,7 @@ public interface ArticleRepository {
 			id DESC
 			</script>
 			""")
-	List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword, int pageStart,
-			int pageLast);
+	List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword, int pageStart, int pageLast);
 
 	@Select("""
 			<script>

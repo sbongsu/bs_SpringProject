@@ -16,7 +16,7 @@ public interface MemberRepository {
 			FROM `member` AS m
 			WHERE m.loginId = #{loginId}
 			""")
-	public Member getMemberId(@Param("loginId") String loginId);
+	public Member getMemberLoginId(String loginId);
 
 	@Select("""
 			SELECT *

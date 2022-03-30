@@ -270,7 +270,6 @@
           >수정취소</button>
           <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
         </form>
-        <div class="replyModifyView"></div>
       </div>
     </c:forEach>
 
@@ -291,7 +290,7 @@
         <div>
           <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body" placeholder="댓글을 입력해주세요"></textarea>
           <div>
-            <button class="btn btn-active float-right mr-14">댓글등록</button>
+            <button class="btn btn-active float-right mr-12">댓글등록</button>
           </div>
         </div>
       </form>
