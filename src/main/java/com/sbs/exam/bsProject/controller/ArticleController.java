@@ -100,6 +100,7 @@ public class ArticleController {
 		int repliesCount = replies.size();
 		
 		articleService.repliesConut(id, repliesCount);
+		String loginedId = rq.getLoginedMember().getLoginId();
 		
 		ResultData actorCanSeeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), id,
 				"article");
@@ -125,6 +126,7 @@ public class ArticleController {
 		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("replies", replies);
 		model.addAttribute("article", article);
+		model.addAttribute("loginedId", loginedId);
 
 		return "usr/article/detail";
 	}

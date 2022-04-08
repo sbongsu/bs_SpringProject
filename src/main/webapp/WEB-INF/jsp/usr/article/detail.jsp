@@ -53,82 +53,82 @@
 </script>
 
 <script>
-  function ReplyModifyShow(el) {
-    var $div = $(el).closest('[data-id]');
+	function ReplyModifyShow(el) {
+		var $div = $(el).closest('[data-id]');
 
-    var replybody = $div.find(' > .replyBody').html().trim();
+		var replybody = $div.find(' > .replyBody').html().trim();
 
-    $div.find(' > .ReplyModifyCenBut > textarea').val(replybody);
+		$div.find(' > .ReplyModifyCenBut > textarea').val(replybody);
 
-    $div.attr('data-modify-mode', 'Y');
-    $div.siblings('[data-modify-mode = "Y"]').attr('data-modify-mode', 'N');
-  }
+		$div.attr('data-modify-mode', 'Y');
+		$div.siblings('[data-modify-mode = "Y"]').attr('data-modify-mode', 'N');
+	}
 
-  function ReplyModifyNone(el) {
-    var $div = $(el).closest('[data-id]');
-    $div.attr('data-modify-mode', 'N');
+	function ReplyModifyNone(el) {
+		var $div = $(el).closest('[data-id]');
+		$div.attr('data-modify-mode', 'N');
 
-  }
+	}
 
-  function Article__modifyReply(form) {
-    form.body.value = form.body.value.trim();
+	function Article__modifyReply(form) {
+		form.body.value = form.body.value.trim();
 
-    if (form.body.value.length == 0) {
-      form.body.focus();
-      alert('수정할 댓글을 입력해 주세요.');
-      return;
-    }
+		if (form.body.value.length == 0) {
+			form.body.focus();
+			alert('수정할 댓글을 입력해 주세요.');
+			return;
+		}
 
-    var $div = $(form).closest('[data-id]');
+		var $div = $(form).closest('[data-id]');
 
-    var newBody = form.body.value;
-    var id = parseInt($div.attr('data-id'));
+		var newBody = form.body.value;
+		var id = parseInt($div.attr('data-id'));
 
-    $.post('../reply/doModifyReplyAjax', {
-      id : id,
-      body : newBody
-    }, function(data) {
-      $div.attr('data-modify-mode', 'N');
+		$.post('../reply/doModifyReplyAjax', {
+			id : id,
+			body : newBody
+		}, function(data) {
+			$div.attr('data-modify-mode', 'N');
 
-      if (data.resultCode == 'S-1') {
-        var $replyBodyText = $div.find('.replyBody');
-        var $textarea = $div.find('form textarea');
+			if (data.resultCode == 'S-1') {
+				var $replyBodyText = $div.find('.replyBody');
+				var $textarea = $div.find('form textarea');
 
-        $replyBodyText.text($textarea.val());
-      } else {
-        $div.attr('data-modify-mode', 'N');
-        if (data.msg) {
-          alert(data.msg)
-        }
-      }
-    });
+				$replyBodyText.text($textarea.val());
+			} else {
+				$div.attr('data-modify-mode', 'N');
+				if (data.msg) {
+					alert(data.msg)
+				}
+			}
+		});
 
-  }
+	}
 
-  function ReplyDelete(obj) {
-    var $div = $(obj).closest('[data-id]');
+	function ReplyDelete(obj) {
+		var $div = $(obj).closest('[data-id]');
 
-    var id = parseInt($div.attr('data-id'));
+		var id = parseInt($div.attr('data-id'));
 
-    $.post('../reply/doDeleteReplyAjax', {
-      id : id,
-    }, function(data) {
-      $div.remove();
-      repliesCount();
-    });
+		$.post('../reply/doDeleteReplyAjax', {
+			id : id,
+		}, function(data) {
+			$div.remove();
+			repliesCount();
+		});
 
-  }
+	}
 
-  function repliesCount() {
+	function repliesCount() {
 
-    $.post('../reply/doRepliesCountAjax', {
-      id : params.id,
-    }, function(data) {
+		$.post('../reply/doRepliesCountAjax', {
+			id : params.id,
+		}, function(data) {
 
-      $('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
-    });
+			$('.replyList').find(' > p > .repliesConutAjax').empty().text(data);
+		});
 
-  }
+	}
 </script>
 <%--댓글 스크립트 끝--%>
 
@@ -159,7 +159,7 @@
        	  </script>
         </div>
       </div>
-      
+
       <%--좋아요, 싫어요 --%>
       <div class="flex items-center justify-center p-2">
         <c:if test="${actorCanMakeReaction}">
@@ -191,7 +191,7 @@
             추천
           </a>
         </c:if>
-        
+
         <%--추천수 --%>
         <div class="w-10 h-10 text-center text-2xl leading-loose">${article.extra__goodReactionPoint}</div>
         <c:if test="${actorCanMakeReaction}">
@@ -223,79 +223,84 @@
         </c:if>
       </div>
     </div>
-    
+
     <%--수정, 삭제버튼--%>
-    <c:if test="${article.extra__actorCanSee }">
-      <div class="float-right mt-1">
+    <div class="float-right mt-1">
+      <c:if test="${article.extra__actorCanSee }">
         <a href="../article/modify?id=${article.id }" onclick="if ( confirm('정말 수정하시겠습니까?') == false ) return false;"
           class="btn btn-ghost"
         >수정</a>
         <a href="../article/doDelete?id=${article.id }" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;"
           class="btn btn-ghost"
         >삭제</a>
-      </div>
-    </c:if>
-    
-    <%--댓글리스트 --%>
-     <div class="replyList overflow-x-auto w-full mt-2 p-3 bg-gray-50 rounded-lg">
-    <p class="mt-2">
-      댓글리스트(
-      <span class="repliesConutAjax">${repliesCount}</span>
-      )
-    </p>
-    <c:forEach var="reply" items="${replies }">
-      <c:set var="memberId" value="${reply.memberId }" />
-      <div data-modify-mode="N" data-id="${reply.id}"
-        class="border border-r-0 border-l-0 border-t-0 border-gray-200 mt-1 p-5"
-      >
-        <c:if test="${rq.loginedMember.id == memberId}">
-          <div class="reply-modify-but w-10 h-5 float-right mb-3">
-            <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
-            <button class="ReplyModifyBut hover:text-blue-500"
-              onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyDelete(this); } return false;"
-            >삭제</button>
-          </div>
-        </c:if>
-        <p>${reply.extra__writerName }
-          <span class="text-xs text-gray-400">${reply.regDate }</span>
-        </p>
-        <div class="ReplyModifyBut replyBody">${reply.body }</div>
-        
-        <%--댓글수정폼 --%>
-        <form class="ReplyModifyCenBut" onsubmit="Article__modifyReply(this); return false;">
-          <input type="hidden" name="id" value="${reply.id}" />
-          <textarea maxlength="300" class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body"></textarea>
-          <button type="button" class="ReplyModifyCenBut float-right ml-2 mr-10 hover:text-blue-500"
-            onclick="ReplyModifyNone(this);"
-          >수정취소</button>
-          <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
-        </form>
-      </div>
-    </c:forEach>
+      </c:if>
+      <c:if test="${loginedId eq 'admin'}">
+        <a href="#" onclick="if ( confirm('관리자님 정말 삭제하시겠습니까?') == false ) return false;" class="badge badge-error">관리자삭제</a>
+      </c:if>
+    </div>
 
-    <%--댓글작성 --%>
-    <p class="mt-2">댓글작성</p>
-    
-    <%--댓글 로그인 후 작성 --%>
-    <c:if test="${!rq.isLogined() }">
-      <p>
-        <a class="text-blue-500" href="/usr/member/showLogin">로그인</a>
-        후 작성해주세요.
+    <%--댓글리스트 --%>
+    <div class="replyList overflow-x-auto w-full mt-2 p-3 bg-gray-50 rounded-lg">
+      <p class="mt-2">
+        댓글리스트(
+        <span class="repliesConutAjax">${repliesCount}</span>
+        )
       </p>
-    </c:if>
-    <c:if test="${rq.isLogined() }">
-      <form method="POST" action="../reply/dowrite" onsubmit="ReplyWrite__submitForm(this); return false;">
-        <input type="hidden" name="relTypeCode" value="article" />
-        <input type="hidden" name="relId" value="${article.id}" />
-        <div>
-          <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body" placeholder="댓글을 입력해주세요"></textarea>
-          <div>
-            <button class="btn btn-active float-right mr-12">댓글등록</button>
-          </div>
+      <c:forEach var="reply" items="${replies }">
+        <c:set var="memberId" value="${reply.memberId }" />
+        <div data-modify-mode="N" data-id="${reply.id}"
+          class="border border-r-0 border-l-0 border-t-0 border-gray-200 mt-1 p-5"
+        >
+          <c:if test="${rq.loginedMember.id == memberId}">
+            <div class="reply-modify-but w-10 h-5 float-right mb-3">
+              <button class="ReplyModifyBut hover:text-blue-500" onclick="ReplyModifyShow(this);">수정</button>
+              <button class="ReplyModifyBut hover:text-blue-500"
+                onclick="if ( confirm('정말 삭제하시겠습니까?') ) { ReplyDelete(this); } return false;"
+              >삭제</button>
+            </div>
+          </c:if>
+          <p>${reply.extra__writerName }
+            <span class="text-xs text-gray-400">${reply.regDate }</span>
+          </p>
+          <div class="ReplyModifyBut replyBody">${reply.body }</div>
+
+          <%--댓글수정폼 --%>
+          <form class="ReplyModifyCenBut" onsubmit="Article__modifyReply(this); return false;">
+            <input type="hidden" name="id" value="${reply.id}" />
+            <textarea maxlength="300" class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body"></textarea>
+            <button type="button" class="ReplyModifyCenBut float-right ml-2 mr-10 hover:text-blue-500"
+              onclick="ReplyModifyNone(this);"
+            >수정취소</button>
+            <button type="submit" class="float-right mr-1 hover:text-blue-500">댓글수정</button>
+          </form>
         </div>
-      </form>
-    </c:if>
-  </div>
+      </c:forEach>
+
+      <%--댓글작성 --%>
+      <p class="mt-2">댓글작성</p>
+
+      <%--댓글 로그인 후 작성 --%>
+      <c:if test="${!rq.isLogined() }">
+        <p>
+          <a class="text-blue-500" href="/usr/member/showLogin">로그인</a>
+          후 작성해주세요.
+        </p>
+      </c:if>
+      <c:if test="${rq.isLogined() }">
+        <form method="POST" action="../reply/dowrite" onsubmit="ReplyWrite__submitForm(this); return false;">
+          <input type="hidden" name="relTypeCode" value="article" />
+          <input type="hidden" name="relId" value="${article.id}" />
+          <div>
+            <textarea class="textarea textarea-bordered w-11/12 mt-2 ml-10" rows="3" name="body"
+              placeholder="댓글을 입력해주세요"
+            ></textarea>
+            <div>
+              <button class="btn btn-active float-right mr-12">댓글등록</button>
+            </div>
+          </div>
+        </form>
+      </c:if>
+    </div>
   </div>
 </section>
 
