@@ -199,4 +199,18 @@ public class ArticleController {
 		articleService.articleDelete(id);
 		return rq.jsReplace("게시물이 삭제되었습니다", "/");
 	}
+	
+	@RequestMapping("/admin/article/doAdminDelete")
+	@ResponseBody
+	public String doAdminDelete(int id) {
+
+		Article article = articleService.getForPrintArticle(rq.getLoginedId(), id);
+
+		if (article == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+
+		articleService.articleDelete(id);
+		return rq.jsReplace("게시물이 삭제되었습니다", "/");
+	}
 }

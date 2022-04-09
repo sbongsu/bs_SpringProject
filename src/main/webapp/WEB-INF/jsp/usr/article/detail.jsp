@@ -235,7 +235,7 @@
         >삭제</a>
       </c:if>
       <c:if test="${loginedId eq 'admin'}">
-        <a href="#" onclick="if ( confirm('관리자님 정말 삭제하시겠습니까?') == false ) return false;" class="badge badge-error">관리자삭제</a>
+        <a href="/admin/article/doAdminDelete?id=${article.id }" onclick="if ( confirm('관리자님 정말 삭제하시겠습니까?') == false ) return false;" class="badge badge-error">관리자삭제</a>
       </c:if>
     </div>
 
