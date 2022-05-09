@@ -41,7 +41,7 @@
           <a href="/" class="btn btn-ghost btn-sm rounded-btn"> 홈 </a>
           <a href="/usr/article/list?boardId=1&page=1" class="btn btn-ghost btn-sm rounded-btn"> 공지사항 </a>
           <a href="/usr/article/list?boardId=2&page=1" class="btn btn-ghost btn-sm rounded-btn"> 자유게시판 </a>
-          <a class="btn btn-ghost btn-sm rounded-btn"> 정보공유게시판 </a>
+          <a class="btn btn-ghost btn-sm rounded-btn"> 🐶댕냥장터😸 </a>
         </div>
       </div>
       <div class="navbar-end text-xs text-gray-400">
@@ -73,7 +73,7 @@
           <a href="/usr/article/list?boardId=2&page=1"> 자유게시판 </a>
         </li>
         <li>
-          <a href="#"> 정보공유게시판 </a>
+          <a href="#"> 🐶댕냥장터😸 </a>
         </li>
       </ul>
     </div>

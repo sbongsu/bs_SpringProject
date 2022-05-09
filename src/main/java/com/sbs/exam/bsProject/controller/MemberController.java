@@ -329,4 +329,18 @@ public class MemberController {
 		//return "카카오 토큰 요청 완료 : 토큰요청에 대한 응답 : " + response2.getBody();
 		return rq.jsReplace("로그인 성공", "/");
 	}
+	
+	@RequestMapping("/member/getLoinIdCheckAjax")
+	@ResponseBody
+	public ResultData getLoinIdCheckAjax(String loginId) {
+		System.out.println("떴어?" + loginId);
+		Member member = memberService.getMemberLoginId(loginId);
+
+		if (member != null) {
+			return ResultData.from("F-1", "해당 로그인아이디는 이미 사용중입니다.");
+			
+		}
+		return ResultData.from("S-1", "사용가능한 아이디입니다.");
+
+	}
 }

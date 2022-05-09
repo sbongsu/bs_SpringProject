@@ -19,6 +19,13 @@
 			return;
 		}
 		
+		if (form.loginId.value.length <= 4) {
+			alert('아이디를 5자 이상으로 입력해주세요.')
+			form.loginId.focus();
+
+			return;
+		}
+		
 		form.userName.value = form.userName.value.trim();
 
 		if (form.userName.value.length == 0) {
@@ -67,6 +74,38 @@
 		MemberJoin__submitDone = true;
 		form.submit();
 	}
+
+function MemberJoin__checkLoginId(el){
+	const form = $(el).closest('form').get(0);
+	form.loginId.value = form.loginId.value.trim();
+	
+    MemberJoin__validLoginId = "";
+    $('.login-id-success').text('');
+    $('.login-id-success').hide();
+    $('.login-id-fail').text('');
+    $('.login-id-fail').hide();
+	
+    if ( form.loginId.value.length > 4 ) {
+      $.get(
+      		"../member/getLoinIdCheckAjax",
+          {
+      			loginId : form.loginId.value
+          },
+          function(data) {
+              if ( data.isSuccess ) {
+              	$('.login-id-success').text(data.msg);
+              	$('.login-id-success').show();
+              }
+              else {
+              	$('.login-id-fail').text(data.msg);
+              	$('.login-id-fail').show();
+              }
+          },
+          "json"
+      );
+  }
+	
+}
 </script>
 
 <form method="POST" action="../member/doJoin" onsubmit="MemberJoin__submit(this); return false;">
@@ -78,7 +117,9 @@
       <div class="form-control mt-2">
         <label class="input-group input-group-vertical">
           <span>ID</span>
-          <input type="text" name="loginId" placeholder="아이디를 입력해주세요" class="input input-bordered">
+          <input onkeyup="MemberJoin__checkLoginId(this);" type="text" name="loginId" placeholder="아이디를 입력해주세요" class="input input-bordered">
+          <div class="mt-2 ml-2 text-red-600 login-id-fail">d</div>
+          <div class="mt-2 ml-2 text-green-600 login-id-success">d</div>
         </label>
         <label class="input-group input-group-vertical mt-2">
           <span>Name</span>
