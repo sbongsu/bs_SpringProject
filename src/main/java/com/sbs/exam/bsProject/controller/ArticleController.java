@@ -213,4 +213,11 @@ public class ArticleController {
 		articleService.articleDelete(id);
 		return rq.jsReplace("게시물이 삭제되었습니다", "/");
 	}
+	
+	@RequestMapping("/usr/article/showShopPage")
+	public String showShopPage () {
+		
+		return "usr/article/shopPage";
+	}
+	
 }
