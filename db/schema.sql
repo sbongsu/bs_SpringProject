@@ -262,4 +262,9 @@ relId = 107,
 ## body에 사진이 base64 진법으로 들어가기 때문에 LONGTEXT로 변경
 ALTER TABLE article MODIFY `body` LONGTEXT NOT NULL;
 
-select * from reactionPoint;
+## 댕냥게시판 추가
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'shop',
+`name` = '댕냥장터';
