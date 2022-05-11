@@ -63,9 +63,10 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) {
-		
+
 		// 해당 게시판 불러오기
 		Board board = boardService.getBoardById(boardId);
 
@@ -76,10 +77,11 @@ public class ArticleController {
 		// 해당 게시판 게시물 수 불러오기
 		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 		// 해당 게시판 페이징처리
-		
+
 		int ArticlesInAPage = 10;
 		int pagesCount = (int) Math.ceil((double) articlesCount / ArticlesInAPage);
-		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page, searchKeywordTypeCode, searchKeyword);
+		List<Article> articles = articleService.getArticles(boardId, ArticlesInAPage, page, searchKeywordTypeCode,
+				searchKeyword);
 
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
@@ -94,31 +96,30 @@ public class ArticleController {
 	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedId(), id);
-		
+
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
-		
+
 		int repliesCount = replies.size();
-		
+
 		articleService.repliesConut(id, repliesCount);
 		String loginedId = rq.getLoginedMember().getLoginId();
-		
+
 		ResultData actorCanSeeReactionPointRd = reactionPointService.actorCanSeeReactionPoint(rq.getLoginedId(), id,
 				"article");
-		
-		if(actorCanSeeReactionPointRd.getResultCode().equals("F-1") || actorCanSeeReactionPointRd.getResultCode().equals("S-1") ) {
+
+		if (actorCanSeeReactionPointRd.getResultCode().equals("F-1")
+				|| actorCanSeeReactionPointRd.getResultCode().equals("S-1")) {
 			model.addAttribute("actorCanMakeReaction", true);
-		}
-		else if(actorCanSeeReactionPointRd.getResultCode().startsWith("F-")){
+		} else if (actorCanSeeReactionPointRd.getResultCode().startsWith("F-")) {
 			model.addAttribute("actorCanMakeReaction", false);
 		}
-		
-		if ( actorCanSeeReactionPointRd.getResultCode().equals("F-2") ) {
-			int sumReactionPointByMemberId = (int)actorCanSeeReactionPointRd.getData1();
-			
-			if ( sumReactionPointByMemberId > 0 ) {
+
+		if (actorCanSeeReactionPointRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanSeeReactionPointRd.getData1();
+
+			if (sumReactionPointByMemberId > 0) {
 				model.addAttribute("actorCanCancelGoodReaction", true);
-			}
-			else {
+			} else {
 				model.addAttribute("actorCanCancelBadReaction", true);
 			}
 		}
@@ -199,7 +200,7 @@ public class ArticleController {
 		articleService.articleDelete(id);
 		return rq.jsReplace("게시물이 삭제되었습니다", "/");
 	}
-	
+
 	@RequestMapping("/admin/article/doAdminDelete")
 	@ResponseBody
 	public String doAdminDelete(int id) {
@@ -213,11 +214,16 @@ public class ArticleController {
 		articleService.articleDelete(id);
 		return rq.jsReplace("게시물이 삭제되었습니다", "/");
 	}
-	
+
 	@RequestMapping("/usr/article/showShopPage")
-	public String showShopPage () {
+	public String showShopPage(Model model, int boardId) {
 		
+		// 해당 게시판 불러오기
+		Board board = boardService.getBoardById(boardId);
+		
+		model.addAttribute("board", board);
+
 		return "usr/article/shopPage";
 	}
-	
+
 }

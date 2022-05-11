@@ -9,9 +9,26 @@
   <c:if test="${board.name eq '자유게시판'}">
     <p class="text-xs text-gray-400">자유롭게 소통하는 게시판입니다.^_^</p>
   </c:if>
-  <c:if test="${board.name eq '🐶댕냥댕냥샵😸'}">
-    <p class="text-xs text-gray-400">자유롭게 소통하는 게시판입니다.^_^</p>
+  <c:if test="${board.name eq '댕냥장터'}">
+    <p class="text-xs text-gray-400">🐶댕댕이🐶 😸냐옹이😸 장터게시판 입니다</p>
   </c:if>
 </div>
 
+
+<div class="w-11/12 mt-2">
+  <div class="overflow-x-auto product-wrap bg-red-50">
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100"></div>
+  </div>
+</div>
 <%@ include file="../common/foot.jspf"%>
