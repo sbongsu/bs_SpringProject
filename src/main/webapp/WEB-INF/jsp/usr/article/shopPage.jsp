@@ -17,18 +17,138 @@
 
 <div class="w-11/12 mt-2">
   <div class="overflow-x-auto product-wrap bg-red-50">
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
-    <div class="product-box bg-blue-100"></div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
+    <div class="product-box bg-blue-100">
+      <div class="w-full h-32 bg-blue-50">
+        <a href="">
+          <img src="" />
+        </a>
+      </div>
+      <a class="text-xs text-center" href="">
+        <p class="mt-3">상품명</p>
+        <p>상품가격</p>
+      </a>
+    </div>
   </div>
 </div>
 <%@ include file="../common/foot.jspf"%>
