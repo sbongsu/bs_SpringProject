@@ -35,7 +35,7 @@ html>body {
 }
 
 body {
-	min-width: 1080px;
+	min-width: 1800px;
 	height: 100%
 }
 
@@ -107,17 +107,21 @@ div [data-modify-mode="Y"] .ReplyModifyBut {
 }
 /* 토스트 UI, 유튜브 플러그인 에서 필요한 CSS 끝 */
 .product-wrap{
-	width : 850px;
+	height: 1500px;
+}
+
+.product-position{
+	margin: 0 auto;
+	height: 1000px;
 }
 
 .product-box {
-	width: calc(( 100% - 30px)/4);
+	width :calc( (100% - 500px) / 5);
 	float : left;
+	margin : 50px;
+	margin-top : 20px;
+	margin-bottom : 100px;
 	height: 200px;
-	padding: 15px;
-	margin-right: 10px;
-	box-sizing : border-box;
-	margin-top: 10px;
 }
 
 .product-wrap>.product-box:nth-child(4n){
